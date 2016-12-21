@@ -31,7 +31,7 @@ public class XmlGeometryAdapter extends XmlAdapter<String, Geometry> {
   @Override
   public String marshal(Geometry v) throws Exception {
     /**
-     * 09/01/2106 - Important. Must specify a 3D WKT Writer to output the
+     * 09/01/2016 - Important. Must specify a 3D WKT Writer to output the
      * Z-component of the geometry. "toString()" and the default WKTWriter are
      * 2-dimensional and do not output the Z-component.
      */
