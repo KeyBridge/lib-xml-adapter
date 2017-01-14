@@ -13,8 +13,6 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import ch.keybridge.lib.xml.adapter.XmlDateAdapter;
-import ch.keybridge.lib.xml.adapter.XmlDateTimeAdapter;
 import java.text.ParseException;
 import java.util.Date;
 import junit.framework.TestCase;

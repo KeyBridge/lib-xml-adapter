@@ -9,8 +9,6 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import ch.keybridge.lib.xml.adapter.XmlPrecisionAdapter02;
-import ch.keybridge.lib.xml.adapter.XmlPrecisionAdapter06;
 import junit.framework.TestCase;
 
 /**
