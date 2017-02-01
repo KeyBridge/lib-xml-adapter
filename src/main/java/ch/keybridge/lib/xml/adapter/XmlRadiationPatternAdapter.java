@@ -13,10 +13,7 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.MultiPoint;
-import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.WKTReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,7 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
     Geometry geometry = new WKTReader().read(v.replace("PATTERN", "MULTIPOINT"));
     TreeMap<Double, Double> treeMap = new TreeMap<>();
     if (geometry instanceof MultiPoint) {
-      for (com.vividsolutions.jts.geom.Coordinate coordinate : geometry.getCoordinates()) {
+      for (Coordinate coordinate : geometry.getCoordinates()) {
         treeMap.put(coordinate.x, coordinate.y);
       }
     }
@@ -63,9 +60,9 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
    */
   @Override
   public String marshal(Map<Double, Double> v) throws Exception {
-    List<com.vividsolutions.jts.geom.Coordinate> coordinates = new ArrayList<>();
+    List<Coordinate> coordinates = new ArrayList<>();
     for (Map.Entry<Double, Double> entry : v.entrySet()) {
-      coordinates.add(new com.vividsolutions.jts.geom.Coordinate(entry.getKey(), entry.getValue()));
+      coordinates.add(new Coordinate(entry.getKey(), entry.getValue()));
     }
     /**
      * Convert a Map of Double values into a JTS MULTIPOINT geometry. Applying
@@ -75,7 +72,8 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
      * coordinate).
      */
     return new GeometryFactory(new PrecisionModel(Math.pow(10, 3)))
-            .createMultiPoint(coordinates.toArray(new com.vividsolutions.jts.geom.Coordinate[coordinates.size()]))
-            .toText().replace("MULTIPOINT", "PATTERN");
+            .createMultiPoint(coordinates.toArray(new Coordinate[coordinates.size()]))
+            .toText()
+            .replace("MULTIPOINT", "PATTERN");
   }
 }
