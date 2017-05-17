@@ -15,6 +15,7 @@
 package ch.keybridge.lib.xml.adapter;
 
 import com.vividsolutions.jts.geom.Envelope;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.bind.annotation.XmlTransient;
@@ -33,9 +34,14 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 @XmlTransient
 public class XmlEnvelopeAdapter extends XmlAdapter<String, Envelope> {
 
+  private static final DecimalFormat DF = new DecimalFormat("0.000000");
+
   @Override
   public String marshal(Envelope v) throws Exception {
-    return "ENV(" + v.getMinX() + ", " + v.getMinY() + ", " + v.getMaxX() + ", " + v.getMaxY() + ")";
+    return "ENV(" + DF.format(v.getMinX())
+            + ", " + DF.format(v.getMinY())
+            + ", " + DF.format(v.getMaxX())
+            + ", " + DF.format(v.getMaxY()) + ")";
   }
 
   @Override
