@@ -23,7 +23,7 @@ public class XmlPrecisionAdapter02Test extends TestCase {
 
   public void testAdapter02() throws Exception {
 
-    XmlPrecisionAdapter02 adapter = new XmlPrecisionAdapter02();
+    XmlDouble02PrecisionAdapter adapter = new XmlDouble02PrecisionAdapter();
 
     Double d = 1219.0570068359375;
     String result = adapter.marshal(d);
@@ -33,7 +33,7 @@ public class XmlPrecisionAdapter02Test extends TestCase {
 
   public void testAdapter06() throws Exception {
 
-    XmlPrecisionAdapter06 adapter = new XmlPrecisionAdapter06();
+    XmlDouble06PrecisionAdapter adapter = new XmlDouble06PrecisionAdapter();
 
     Double d = 1219.0570068359375;
     String result = adapter.marshal(d);

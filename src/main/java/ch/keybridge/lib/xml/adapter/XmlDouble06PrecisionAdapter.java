@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @since v1.3.3 added 07/25/16
  */
 @XmlTransient
-public class XmlPrecisionAdapter06 extends XmlAdapter<String, Double> {
+public class XmlDouble06PrecisionAdapter extends XmlAdapter<String, Double> {
 
   /**
    * Unmarshal a String to a Number
