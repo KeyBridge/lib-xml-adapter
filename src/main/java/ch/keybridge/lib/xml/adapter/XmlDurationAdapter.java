@@ -6,9 +6,7 @@
 package ch.keybridge.lib.xml.adapter;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.TimeZone;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -41,35 +39,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 @XmlTransient
 public class XmlDurationAdapter extends XmlAdapter<String, Duration> {
 
-  /**
-   * A complete ISO 8601 Date Time configuration.
-   * <p>
-   * Different standards may need different levels of granularity in the date
-   * and time. ISO 8601 defines six levels. Standards that reference this
-   * profile should specify one or more of these granularities. If a given
-   * standard allows more than one granularity, it should specify the meaning of
-   * the dates and times with reduced precision, for example, the result of
-   * comparing two dates with different precisions.
-   * <p>
-   * This implementation supports version 5: Complete date plus hours, minutes
-   * and seconds. {@code YYYY-MM-DDThh:mm:ssTZD} (e.g.
-   * 1997-07-16T19:20:30+01:00).
-   * <p>
-   * Times are expressed in UTC (Coordinated Universal Time), with a special UTC
-   * designator ("Z").
-   */
-  private static final String PATTERN_DATE_TIME = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-  /**
-   * UTC (Coordinated Universal Time)
-   */
-  private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
-  /**
-   * A date time formatter for the above declared pattern.
-   */
-  private final SimpleDateFormat dateFormatter = new SimpleDateFormat(PATTERN_DATE_TIME);
-
   public XmlDurationAdapter() {
-    dateFormatter.setTimeZone(UTC);
   }
 
   /**
