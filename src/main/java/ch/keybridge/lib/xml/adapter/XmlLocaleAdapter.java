@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  *
  * @author jesse
  */
-public class LocaleAdapter extends XmlAdapter<String, Locale> {
+public class XmlLocaleAdapter extends XmlAdapter<String, Locale> {
 
   @Override
   public Locale unmarshal(String v) throws Exception {
