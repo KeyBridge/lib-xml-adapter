@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>keybridge.lib</groupId>
   <artifactId>xml-adapter</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <packaging>jar</packaging>
 
   <name>lib-xml-adapter</name>
@@ -14,6 +14,7 @@
     v1.0.0 - classes migrated from keybridge-common, WKB adapters moved to lib-gis-common.
     v1.0.1 - add Base64 adapter
     v1.0.2 - add Locale and ZoneId adapters
+    v1.0.3 - add ChronoUnit adapter
   </description>
 
   <organization>
