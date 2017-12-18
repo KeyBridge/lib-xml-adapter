@@ -44,10 +44,17 @@ public class XmlDouble02PrecisionAdapter extends XmlAdapter<String, Double> {
    */
   @Override
   public String marshal(Double v) throws Exception {
+    /**
+     * Intercept invalid double values, which may be produced by the abstract
+     * properties parser.
+     */
+    if (v.isNaN()) {
+      return null;
+    }
     try {
       return new BigDecimal(v)
-              .setScale(2, BigDecimal.ROUND_HALF_UP)
-              .toString();
+        .setScale(2, BigDecimal.ROUND_HALF_UP)
+        .toString();
     } catch (Exception e) {
       return null;
     }
