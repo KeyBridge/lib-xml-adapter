@@ -13,8 +13,10 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import junit.framework.TestCase;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -38,7 +40,7 @@ public class XmlRadiationPatternAdapterTest {
     String text = adapter.marshal(pattern);
 //    System.out.println("Text    " + text);
 
-    TestCase.assertEquals(text, v);
+    Assert.assertEquals(text, v);
   }
 
   @Test
@@ -52,7 +54,26 @@ public class XmlRadiationPatternAdapterTest {
     String text = adapter.marshal(pattern);
 //    System.out.println("Text    " + text);
 
-    TestCase.assertEquals(text, v);
+    Assert.assertEquals(text, v);
+  }
+
+  @Test
+  public void testMarshalUnsorted() throws Exception {
+    XmlRadiationPatternAdapter adapter = new XmlRadiationPatternAdapter();
+    /**
+     * Create a map that retains insertion order an insert angles out of order
+     */
+    Map<Double, Double> pattern = new LinkedHashMap<>();
+    pattern.put(90D, -10D);
+    pattern.put(0D, 0D);
+    pattern.put(270D, -10D);
+    pattern.put(180D, -20D);
+//    System.out.println("Text    " + v);
+//    System.out.println("Map     " + pattern);
+    String text = adapter.marshal(pattern);
+//    System.out.println("Text    " + text);
+
+    Assert.assertEquals("PATTERN ((0 0), (90 -10), (180 -20), (270 -10))", text);
   }
 
 }

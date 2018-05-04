@@ -15,10 +15,8 @@ package ch.keybridge.lib.xml.adapter;
 
 import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.WKTReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+
+import java.util.*;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -60,9 +58,15 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
    */
   @Override
   public String marshal(Map<Double, Double> v) throws Exception {
-    List<Coordinate> coordinates = new ArrayList<>();
+    /**
+     * If the provided map is not sorted, enforce the natural ordering of keys
+     */
+    if (! (v instanceof SortedMap)) v = new TreeMap<>(v);
+
+    Coordinate[] coordinates = new Coordinate[v.size()];
+    int idx = 0;
     for (Map.Entry<Double, Double> entry : v.entrySet()) {
-      coordinates.add(new Coordinate(entry.getKey(), entry.getValue()));
+      coordinates[idx++] = new Coordinate(entry.getKey(), entry.getValue());
     }
     /**
      * Convert a Map of Double values into a JTS MULTIPOINT geometry. Applying
@@ -72,7 +76,7 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
      * coordinate).
      */
     return new GeometryFactory(new PrecisionModel(Math.pow(10, 3)))
-            .createMultiPoint(coordinates.toArray(new Coordinate[coordinates.size()]))
+            .createMultiPoint(coordinates)
             .toText()
             .replace("MULTIPOINT", "PATTERN");
   }
