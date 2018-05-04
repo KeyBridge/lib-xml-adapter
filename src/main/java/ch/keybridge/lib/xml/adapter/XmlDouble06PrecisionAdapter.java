@@ -45,9 +45,12 @@ public class XmlDouble06PrecisionAdapter extends XmlAdapter<String, Double> {
   @Override
   public String marshal(Double v) throws Exception {
     try {
+      if (v == null || v.isNaN()) {
+        return null;
+      }
       return new BigDecimal(v)
-              .setScale(6, BigDecimal.ROUND_HALF_UP)
-              .toString();
+        .setScale(6, BigDecimal.ROUND_HALF_UP)
+        .toString();
     } catch (Exception e) {
       return null;
     }

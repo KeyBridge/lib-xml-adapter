@@ -48,10 +48,10 @@ public class XmlDouble02PrecisionAdapter extends XmlAdapter<String, Double> {
      * Intercept invalid double values, which may be produced by the abstract
      * properties parser.
      */
-    if (v.isNaN()) {
-      return null;
-    }
     try {
+      if (v == null || v.isNaN()) {
+        return null;
+      }
       return new BigDecimal(v)
         .setScale(2, BigDecimal.ROUND_HALF_UP)
         .toString();
