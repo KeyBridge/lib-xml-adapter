@@ -15,8 +15,9 @@ package ch.keybridge.lib.xml.adapter;
 
 import com.vividsolutions.jts.geom.*;
 import com.vividsolutions.jts.io.WKTReader;
-
-import java.util.*;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -31,7 +32,8 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, Double>> {
 
   /**
-   * Unmarshal a text-encoded MULTIPOINT geometry into a Map of Double pairs.
+   * Unmarshal a text-encoded antenna PATTERN into an antenna Map of Double
+   * values [radial, gain].
    *
    * @param v a text-encoded MULTIPOINT geometry
    * @return a Map of Double pairs
@@ -59,25 +61,33 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
   @Override
   public String marshal(Map<Double, Double> v) throws Exception {
     /**
-     * If the provided map is not sorted, enforce the natural ordering of keys
+     * If the provided map is not sorted, enforce the natural ordering of keys.
      */
-    if (! (v instanceof SortedMap)) v = new TreeMap<>(v);
-
+    if (!(v instanceof SortedMap)) {
+      v = new TreeMap<>(v);
+    }
+    /**
+     * Encode the key/value [radial, gain] pairs as Coordinates [x, y], place
+     * the Coordinates into an array.
+     */
     Coordinate[] coordinates = new Coordinate[v.size()];
     int idx = 0;
     for (Map.Entry<Double, Double> entry : v.entrySet()) {
       coordinates[idx++] = new Coordinate(entry.getKey(), entry.getValue());
     }
     /**
-     * Convert a Map of Double values into a JTS MULTIPOINT geometry. Applying
-     * the Precision Model will trim the numbers (key and value) to 4 decimal
-     * places. (Scale of 10^3 = 10000, where scale is the amount by which to
-     * multiply a coordinate after subtracting the offset, to obtain a precise
-     * coordinate).
+     * Convert the array of Coordinates [radial, gain] into a JTS MULTIPOINT
+     * geometry. Applying the Precision Model will trim the numbers (key and
+     * value) to 4 decimal places. (Scale of 10^3 = 10000, where scale is the
+     * amount by which to multiply a coordinate after subtracting the offset, to
+     * obtain a precise coordinate).
+     * <p>
+     * Finally convert the MULTIPOINT to an antenna PATTERN (to avoid any
+     * possible confusion).
      */
     return new GeometryFactory(new PrecisionModel(Math.pow(10, 3)))
-            .createMultiPoint(coordinates)
-            .toText()
-            .replace("MULTIPOINT", "PATTERN");
+      .createMultiPoint(coordinates)
+      .toText()
+      .replace("MULTIPOINT", "PATTERN");
   }
 }
