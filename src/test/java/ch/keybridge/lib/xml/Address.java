@@ -356,9 +356,9 @@ public class Address implements Serializable, Comparable<Address> {
    */
   public boolean isComplete() {
     return street != null && !street.isEmpty()
-           && city != null && !city.isEmpty()
-           && state != null && !state.isEmpty()
-           && postalCode != null && !postalCode.isEmpty();
+      && city != null && !city.isEmpty()
+      && state != null && !state.isEmpty()
+      && postalCode != null && !postalCode.isEmpty();
   }
 
   /**
@@ -435,19 +435,4 @@ public class Address implements Serializable, Comparable<Address> {
     return format(true);
   }
 
-  /**
-   * Get a complete dump of the street field values.
-   *
-   * @return a complete list of street fields and values
-   */
-  public String toStringFull() {
-    return //      "Address "
-      //      + "id [" + id
-      "address [" + street
-      + "] city [" + city
-      + "] state [" + state
-      + "] postalCode [" + postalCode
-      + "] country [" + country
-      + "]";
-  }
 }
