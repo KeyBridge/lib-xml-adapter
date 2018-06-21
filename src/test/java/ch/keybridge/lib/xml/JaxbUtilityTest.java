@@ -18,6 +18,7 @@
  */
 package ch.keybridge.lib.xml;
 
+import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,23 +30,33 @@ import org.junit.Test;
  */
 public class JaxbUtilityTest {
 
+  private Address address;
+
   public JaxbUtilityTest() {
   }
 
   @Before
   public void setUp() {
+    address = Address.getInstance("10101 Boolean Blvd.", "Binary", "IO", "10010", "OI");
   }
 
   @Test
   public void testToFromXML() throws JAXBException, Exception {
-
-    Address a = Address.getInstance("10101 Boolean Blvd.", "Binary", "IO", "10010", "OI");
-
-    String xml = JaxbUtility.marshal(a);
-
+//    Address address = Address.getInstance("10101 Boolean Blvd.", "Binary", "IO", "10010", "OI");
+    String xml = JaxbUtility.marshal(address);
     Address x = JaxbUtility.unmarshal(xml, Address.class);
+    Assert.assertEquals(x, address);
+  }
 
-    Assert.assertEquals(x, a);
+  @Test
+  public void testJSONSerialization() throws IOException {
+    String json = JaxbUtility.toJson(address);
+    System.out.println("JSON: ");
+    System.out.println(json);
+
+    Address a = JaxbUtility.fromJson(json, Address.class);
+
+    System.out.println("read: " + a);
 
   }
 
