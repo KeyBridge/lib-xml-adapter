@@ -78,7 +78,7 @@ public class XmlMapDoublesAdapter extends XmlAdapter<String, Map<Double, Double>
      * coordinate).
      */
     return new GeometryFactory(new PrecisionModel(Math.pow(10, 6)))
-            .createMultiPoint(coordinates.toArray(new Coordinate[coordinates.size()]))
-            .toText().replace("MULTIPOINT", "DOUBLE");
+      .createMultiPoint(coordinates.toArray(new Coordinate[coordinates.size()]))
+      .toText().replace("MULTIPOINT", "DOUBLE");
   }
 }
