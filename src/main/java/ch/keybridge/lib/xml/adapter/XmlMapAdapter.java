@@ -173,7 +173,7 @@ public class XmlMapAdapter extends XmlAdapter<EntryList, Map<String, Serializabl
    */
   @XmlRootElement(name = "MapEntrySet")
   @XmlType(name = "MapEntrySet")
-  public static class EntryList {
+  public static class EntryList implements Serializable {
 
     /**
      * A simple arrayList of MapEntryType containers.
