@@ -11,6 +11,14 @@
 
     Includes XmlAdapter implementations and JAXB marshal / unmarshal utilities.
 
+    Note that all dependencies are `provided` and must be included in your
+    final application. These are:
+
+    * com.fasterxml.jackson.core : jackson-databind
+    * com.vividsolutions : jts
+
+    ## History
+
     v1.0.0 - classes migrated from keybridge-common, WKB adapters moved to lib-gis-common.
     v1.0.1 - add Base64 adapter
     v1.0.2 - add Locale and ZoneId adapters
