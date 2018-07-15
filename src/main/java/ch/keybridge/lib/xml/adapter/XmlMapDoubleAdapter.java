@@ -25,9 +25,10 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
+ * @deprecated v1.4.0 - use XmlMapAdapter
+ *
  * XmlAdapter implementation to marshal and unmarshal MAP instances of DOUBLE
- * value pairs. This produces a Sorted list of Entries. e.g.
- * <pre>
+ * value pairs. This produces a Sorted list of Entries. e.g.  <pre>
  * &lt;Entry id="0.2630339401223166"&gt;0.6184834691764691&lt;/Entry&gt;
  * &lt;Entry id="0.25640031536717633"&gt;0.13034743218391254&lt;/Entry&gt;
  * &lt;Entry id="0.14305560811040707"&gt;0.22700202552762183&lt;/Entry&gt;
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @since 1.3.1 - created 06/02/16; Update 07/28/17 to ensure non-null
  * ArrayList.
  */
+@Deprecated
 @XmlTransient
 public class XmlMapDoubleAdapter extends XmlAdapter<EntryList, Map<Double, Double>> {
 

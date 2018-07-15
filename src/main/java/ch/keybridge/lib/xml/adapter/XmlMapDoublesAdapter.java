@@ -23,11 +23,12 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
+ * @deprecated v1.4.0 - use XmlMapAdapter
+ *
  * XmlAdapter implementation to marshal and unmarshal MAP instances of DOUBLE
  * value pairs.
  * <p>
- * This produces a MULTIPOINT encoded String representation of the values. e.g.
- * <pre>
+ * This produces a MULTIPOINT encoded String representation of the values. e.g.  <pre>
  * DOUBLES ((0.2630339 0.6184835), (0.2564003 0.1303474), (0.1430556 0.227002), (0.5152168 0.0071995))
  * </pre>
  *
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @since WSIF 7.4.0 - created 11/10/15, updated 06/02/16 replaces MULTIPOINT
  * label with DOUBLES
  */
+@Deprecated
 @XmlTransient
 public class XmlMapDoublesAdapter extends XmlAdapter<String, Map<Double, Double>> {
 

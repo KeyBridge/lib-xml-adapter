@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
+ * @deprecated v1.4.0 - use XmlMapAdapter
+ *
  * XmlAdapter implementation to marshal and unmarshal MAP instances of STRING
  * value pairs.
  *
@@ -34,6 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @since 1.3.1 - updated 06/02/16 to produce a list of Entries instead of
  * URL-encoded text. Update 07/28/17 to ensure non-null ArrayList.
  */
+@Deprecated
 @XmlTransient
 public class XmlMapStringAdapter extends XmlAdapter<EntryList, Map<String, String>> {
 
