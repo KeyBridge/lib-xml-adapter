@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -37,7 +36,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * URL-encoded text. Update 07/28/17 to ensure non-null ArrayList.
  */
 @Deprecated
-@XmlTransient
 public class XmlMapStringAdapter extends XmlAdapter<EntryList, Map<String, String>> {
 
   @Override

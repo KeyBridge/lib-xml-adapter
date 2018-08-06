@@ -21,7 +21,6 @@ import com.vividsolutions.jts.io.WKBWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.DatatypeConverter;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -31,7 +30,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Jesse Caulfield
  * @since 02/01/15
  */
-@XmlTransient
 public class XmlGeometryWKBAdapter extends XmlAdapter<String, Geometry> {
 
   /**

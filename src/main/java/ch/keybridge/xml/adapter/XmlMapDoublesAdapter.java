@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -37,7 +36,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * label with DOUBLES
  */
 @Deprecated
-@XmlTransient
 public class XmlMapDoublesAdapter extends XmlAdapter<String, Map<Double, Double>> {
 
   /**

@@ -8,7 +8,6 @@ package ch.keybridge.xml.adapter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -20,7 +19,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC
  * @since v1.4.0 added 07/15/18 to support XmlMapAdapter
  */
-@XmlTransient
 public class XmlCalendarAdapter extends XmlAdapter<String, Calendar> {
 
   /**

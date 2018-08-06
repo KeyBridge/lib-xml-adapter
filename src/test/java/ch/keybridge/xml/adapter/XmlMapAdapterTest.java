@@ -18,10 +18,8 @@
  */
 package ch.keybridge.xml.adapter;
 
-import ch.keybridge.xml.adapter.XmlMapAdapter;
 import ch.keybridge.xml.JaxbUtility;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.GeometryFactory;
+import ch.keybridge.xml.adapter.map.MapEntrySet;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -64,15 +62,14 @@ public class XmlMapAdapterTest {
     entryMap.put("string1", "four score");
     entryMap.put("string2", "lorem ipsum");
 
-    entryMap.put("point", new GeometryFactory().createPoint(new Coordinate(123, 456)));
-
+//    entryMap.put("point", new GeometryFactory().createPoint(new Coordinate(123, 456)));
     /**
      * Calendar and Date are not mapped exactly as the millisecond component is
      * not conveyed. Calendar and Date are rounded to the nearest second.
      */
     //    entryMap.put("calendar", Calendar.getInstance(Locale.ITALY));
 //    entryMap.put("date", new Date());
-    XmlMapAdapter.EntryList entryList = adapter.marshal(entryMap);
+    MapEntrySet entryList = adapter.marshal(entryMap);
 
     String xml = JaxbUtility.marshal(entryList);
 

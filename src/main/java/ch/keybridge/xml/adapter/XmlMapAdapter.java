@@ -13,16 +13,14 @@
  */
 package ch.keybridge.xml.adapter;
 
-import ch.keybridge.xml.adapter.XmlMapAdapter.EntryList;
-import com.vividsolutions.jts.geom.Envelope;
-import com.vividsolutions.jts.geom.Geometry;
+import ch.keybridge.xml.adapter.map.MapEntrySet;
+import ch.keybridge.xml.adapter.map.MapEntryType;
 import java.io.Serializable;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -33,8 +31,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC
  * @since v1.2.0 - added 06/10/18
  */
-@XmlTransient
-public class XmlMapAdapter extends XmlAdapter<EntryList, Map<String, Serializable>> {
+public class XmlMapAdapter extends XmlAdapter<MapEntrySet, Map<String, Serializable>> {
 
   private static final Logger LOGGER = Logger.getLogger(XmlMapAdapter.class.getName());
 
@@ -55,9 +52,8 @@ public class XmlMapAdapter extends XmlAdapter<EntryList, Map<String, Serializabl
     ADAPTERS.put(Short.class, XmlShortAdapter.class);
 
     // jts
-    ADAPTERS.put(Envelope.class, XmlEnvelopeAdapter.class);
-    ADAPTERS.put(Geometry.class, XmlGeometryAdapter.class);
-
+//    ADAPTERS.put(Envelope.class, XmlEnvelopeAdapter.class);
+//    ADAPTERS.put(Geometry.class, XmlGeometryAdapter.class);
     // java.util
     ADAPTERS.put(Date.class, XmlDateTimeAdapter.class);
     ADAPTERS.put(GregorianCalendar.class, XmlCalendarAdapter.class);
@@ -97,7 +93,7 @@ public class XmlMapAdapter extends XmlAdapter<EntryList, Map<String, Serializabl
    * Parses a sequence of Entries into a HashMap.
    */
   @Override
-  public Map<String, Serializable> unmarshal(EntryList entryList) throws Exception {
+  public Map<String, Serializable> unmarshal(MapEntrySet entryList) throws Exception {
     if (entryList == null) {
       return null;
     }
@@ -127,11 +123,11 @@ public class XmlMapAdapter extends XmlAdapter<EntryList, Map<String, Serializabl
    * Parses a HashMap into an ArrayList of Entries.
    */
   @Override
-  public EntryList marshal(Map<String, Serializable> entryMap) throws Exception {
+  public MapEntrySet marshal(Map<String, Serializable> entryMap) throws Exception {
     if (entryMap == null) {
       return null;
     }
-    EntryList myMapType = new EntryList();
+    MapEntrySet myMapType = new MapEntrySet();
     entryMap.entrySet().stream().map((entry) -> {
       /**
        * Transform the Entry to an EntryType.
@@ -168,53 +164,4 @@ public class XmlMapAdapter extends XmlAdapter<EntryList, Map<String, Serializabl
     return myMapType;
   }
 
-  /**
-   * A List of entries. Each entry is labeled "Entry".
-   */
-  @XmlRootElement(name = "MapEntrySet")
-  @XmlType(name = "MapEntrySet")
-  public static class EntryList implements Serializable {
-
-    /**
-     * A simple arrayList of MapEntryType containers.
-     */
-    @XmlElement(name = "Entry")
-    Collection<MapEntryType> entry = new ArrayList<>();
-
-    /**
-     * Get the MapEntryType list.
-     *
-     * @return a non-null ArrayList
-     */
-    public Collection<MapEntryType> getEntry() {
-      if (entry == null) {
-        entry = new ArrayList<>();
-      }
-      return entry;
-    }
-
-  }
-
-  /**
-   * A entry type containing a String ID and a String value.
-   */
-  @XmlType(name = "MapEntryType")
-  public static class MapEntryType {
-
-    /**
-     * The Map entry key index.
-     */
-    @XmlAttribute
-    public String key;
-    /**
-     * The value class name.
-     */
-    @XmlAttribute
-    public String clazz;
-    /**
-     * The Map entry value.
-     */
-    @XmlValue
-    public String value;
-  }
 }

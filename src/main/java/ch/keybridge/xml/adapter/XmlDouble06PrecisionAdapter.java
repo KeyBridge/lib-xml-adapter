@@ -6,7 +6,6 @@
 package ch.keybridge.xml.adapter;
 
 import java.math.BigDecimal;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -16,7 +15,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC
  * @since v1.3.3 added 07/25/16
  */
-@XmlTransient
 public class XmlDouble06PrecisionAdapter extends XmlAdapter<String, Double> {
 
   /**

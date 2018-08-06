@@ -7,7 +7,6 @@ package ch.keybridge.xml.adapter;
 
 import java.text.ParseException;
 import java.time.Period;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -17,7 +16,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC 10/13/17
  * @since v1.0.3
  */
-@XmlTransient
 public class XmlPeriodAdapter extends XmlAdapter<String, Period> {
 
   public XmlPeriodAdapter() {

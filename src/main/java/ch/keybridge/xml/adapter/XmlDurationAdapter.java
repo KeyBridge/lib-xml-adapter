@@ -7,7 +7,6 @@ package ch.keybridge.xml.adapter;
 
 import java.text.ParseException;
 import java.time.Duration;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -36,7 +35,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC
  * @since v1.1.1 added 10/22/15
  */
-@XmlTransient
 public class XmlDurationAdapter extends XmlAdapter<String, Duration> {
 
   public XmlDurationAdapter() {

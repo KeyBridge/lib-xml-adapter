@@ -17,7 +17,6 @@ package ch.keybridge.xml.adapter;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.WKTReader;
 import com.vividsolutions.jts.io.WKTWriter;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -25,7 +24,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  *
  * @author Jesse Caulfield
  */
-@XmlTransient
 public class XmlGeometryAdapter extends XmlAdapter<String, Geometry> {
 
   @Override

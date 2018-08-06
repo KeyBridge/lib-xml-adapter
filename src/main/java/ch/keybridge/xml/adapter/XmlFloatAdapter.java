@@ -5,7 +5,6 @@
  */
 package ch.keybridge.xml.adapter;
 
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC
  * @since v1.4.0 added 07/15/18 to support XmlMapAdapter
  */
-@XmlTransient
 public class XmlFloatAdapter extends XmlAdapter<String, Float> {
 
   /**

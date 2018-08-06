@@ -18,7 +18,6 @@ import com.vividsolutions.jts.geom.Envelope;
 import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -31,7 +30,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Jesse Caulfield
  * @since 1.3.4 added 09/17/16
  */
-@XmlTransient
 public class XmlEnvelopeAdapter extends XmlAdapter<String, Envelope> {
 
   private static final DecimalFormat DF = new DecimalFormat("0.000000");
@@ -39,9 +37,9 @@ public class XmlEnvelopeAdapter extends XmlAdapter<String, Envelope> {
   @Override
   public String marshal(Envelope v) throws Exception {
     return "ENV(" + DF.format(v.getMinX())
-            + ", " + DF.format(v.getMinY())
-            + ", " + DF.format(v.getMaxX())
-            + ", " + DF.format(v.getMaxY()) + ")";
+      + ", " + DF.format(v.getMinY())
+      + ", " + DF.format(v.getMaxX())
+      + ", " + DF.format(v.getMaxY()) + ")";
   }
 
   @Override
