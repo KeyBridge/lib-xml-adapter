@@ -13,84 +13,30 @@
  */
 package ch.keybridge.xml.adapter;
 
-import ch.keybridge.xml.adapter.XmlMapStringAdapter.EntryList;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import ch.keybridge.xml.TextEncodingUtility;
 import java.util.Map;
-import java.util.Map.Entry;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * @deprecated v1.4.0 - use XmlMapAdapter
- *
  * XmlAdapter implementation to marshal and unmarshal MAP instances of STRING
- * value pairs.
+ * value pairs to a URL-encoded string.
  *
  * @author Key Bridge LLC
  * @since WSIF 7.4.2 - created 11/17/15 supporting AExtensible
  * @since 1.3.1 - updated 06/02/16 to produce a list of Entries instead of
  * URL-encoded text. Update 07/28/17 to ensure non-null ArrayList.
+ * @since v1.5.0 reintroduced into lib-xml-adapter
  */
-@Deprecated
-public class XmlMapStringAdapter extends XmlAdapter<EntryList, Map<String, String>> {
+public class XmlMapStringAdapter extends XmlAdapter<String, Map<String, String>> {
 
   @Override
-  public Map<String, String> unmarshal(EntryList v) throws Exception {
-    if (v == null) {
-      return null;
-    }
-    HashMap<String, String> hashMap = new HashMap<>();
-    for (EntryType myEntryType : v.getEntry()) {
-      hashMap.put(myEntryType.key, myEntryType.value);
-    }
-    return hashMap;
+  public Map<String, String> unmarshal(String v) throws Exception {
+    return TextEncodingUtility.decodeKVMap(v);
   }
 
   @Override
-  public EntryList marshal(Map<String, String> v) throws Exception {
-    if (v == null) {
-      return null;
-    }
-    EntryList myMapType = new EntryList();
-    for (Entry<String, String> entry : v.entrySet()) {
-      EntryType entryType = new EntryType();
-      entryType.key = entry.getKey();
-      entryType.value = entry.getValue();
-      myMapType.getEntry().add(entryType);
-    }
-    return myMapType;
+  public String marshal(Map<String, String> v) throws Exception {
+    return TextEncodingUtility.encodeKVMap(v);
   }
 
-  /**
-   * A List of entries. Each entry is labeled "Entry".
-   */
-  public static class EntryList {
-
-    @XmlElement(name = "Entry")
-    List<EntryType> entry = new ArrayList<>();
-
-    public List<EntryType> getEntry() {
-      if (entry == null) {
-        entry = new ArrayList<>();
-      }
-      return entry;
-    }
-
-  }
-
-  /**
-   * A entry type containing a String ID and a String value.
-   */
-  public static class EntryType {
-
-    @XmlAttribute
-    public String key;
-
-    @XmlValue
-    public String value;
-  }
 }
