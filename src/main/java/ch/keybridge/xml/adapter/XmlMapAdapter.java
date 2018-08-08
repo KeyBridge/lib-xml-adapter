@@ -15,7 +15,6 @@ package ch.keybridge.xml.adapter;
 
 import ch.keybridge.xml.adapter.map.MapEntrySet;
 import ch.keybridge.xml.adapter.map.MapEntryType;
-import java.io.Serializable;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -31,7 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC
  * @since v1.2.0 - added 06/10/18
  */
-public class XmlMapAdapter extends XmlAdapter<MapEntrySet, Map<String, Serializable>> {
+public class XmlMapAdapter extends XmlAdapter<MapEntrySet, Map<String, Object>> {
 
   private static final Logger LOGGER = Logger.getLogger(XmlMapAdapter.class.getName());
 
@@ -93,11 +92,11 @@ public class XmlMapAdapter extends XmlAdapter<MapEntrySet, Map<String, Serializa
    * Parses a sequence of Entries into a HashMap.
    */
   @Override
-  public Map<String, Serializable> unmarshal(MapEntrySet entryList) throws Exception {
+  public Map<String, Object> unmarshal(MapEntrySet entryList) throws Exception {
     if (entryList == null) {
       return null;
     }
-    HashMap<String, Serializable> hashMap = new HashMap<>();
+    HashMap<String, Object> hashMap = new HashMap<>();
     entryList.getEntry().forEach((myEntryType) -> {
       try {
         /**
@@ -105,7 +104,8 @@ public class XmlMapAdapter extends XmlAdapter<MapEntrySet, Map<String, Serializa
          */
         XmlAdapter adapter = findAdapter(Class.forName(myEntryType.clazz));
         if (adapter != null) {
-          hashMap.put(myEntryType.key, (Serializable) adapter.unmarshal(myEntryType.value));
+          hashMap.put(myEntryType.key,
+                      adapter.unmarshal(myEntryType.value));
         } else {
           LOGGER.log(Level.FINE, "Unrecognized class type. No adapter for {0}", myEntryType.clazz);
           hashMap.put(myEntryType.key, myEntryType.value);
@@ -123,7 +123,7 @@ public class XmlMapAdapter extends XmlAdapter<MapEntrySet, Map<String, Serializa
    * Parses a HashMap into an ArrayList of Entries.
    */
   @Override
-  public MapEntrySet marshal(Map<String, Serializable> entryMap) throws Exception {
+  public MapEntrySet marshal(Map<String, Object> entryMap) throws Exception {
     if (entryMap == null) {
       return null;
     }

@@ -18,12 +18,7 @@
  */
 package ch.keybridge.xml.adapter;
 
-import ch.keybridge.xml.JaxbUtility;
-import ch.keybridge.xml.adapter.map.MapEntrySet;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,30 +28,30 @@ import org.junit.Test;
  *
  * @author Key Bridge
  */
-public class XmlMapAdapterTest {
+public class XmlMapStringAdapterTest {
 
-  private XmlMapAdapter adapter;
+  private XmlMapStringAdapter adapter;
 
-  public XmlMapAdapterTest() {
+  public XmlMapStringAdapterTest() {
   }
 
   @Before
   public void setUp() {
-    this.adapter = new XmlMapAdapter();
+    this.adapter = new XmlMapStringAdapter();
   }
 
   @Test
   public void testMarshal() throws Exception {
 
-    Map<String, Object> entryMap = new HashMap<>();
+    Map<String, String> entryMap = new HashMap<>();
 
-    entryMap.put("one", 1);
-    entryMap.put("true", true);
-    entryMap.put("false", Boolean.FALSE);
-    entryMap.put("two-point-zero", 2.0);
-    entryMap.put("english", Locale.ENGLISH);
-    entryMap.put("local-now", LocalDateTime.now());
-    entryMap.put("zoned-now", ZonedDateTime.now());
+    entryMap.put("one", "1");
+    entryMap.put("true", "true");
+    entryMap.put("false", "Boolean.FALSE");
+    entryMap.put("two-point-zero", "2.0");
+    entryMap.put("english", "Locale.ENGLISH");
+    entryMap.put("local-now", "LocalDateTime.now()");
+    entryMap.put("zoned-now", "ZonedDateTime.now()");
 
     entryMap.put("string1", "four score");
     entryMap.put("string2", "lorem ipsum");
@@ -68,20 +63,19 @@ public class XmlMapAdapterTest {
      */
     //    entryMap.put("calendar", Calendar.getInstance(Locale.ITALY));
 //    entryMap.put("date", new Date());
-    MapEntrySet entryList = adapter.marshal(entryMap);
+    String entryList = adapter.marshal(entryMap);
 
-    String xml = JaxbUtility.marshal(entryList);
+//    String xml = JaxbUtility.marshal(entryList);
+    System.out.println(entryList);
 
-    System.out.println(xml);
-
-    Map<String, Object> unmarshal = adapter.unmarshal(entryList);
+    Map<String, String> unmarshal = adapter.unmarshal(entryList);
 
 //    System.out.println(unmarshal);
-    for (Map.Entry<String, Object> entry : unmarshal.entrySet()) {
+    for (Map.Entry<String, String> entry : unmarshal.entrySet()) {
       System.out.println("  entry " + entry + " " + entry.getValue().getClass().getName());
     }
 
-    for (Map.Entry<String, Object> entry : unmarshal.entrySet()) {
+    for (Map.Entry<String, String> entry : unmarshal.entrySet()) {
       Assert.assertEquals(entryMap.get(entry.getKey()), entry.getValue());
     }
   }

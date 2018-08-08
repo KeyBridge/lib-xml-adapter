@@ -29,11 +29,17 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class XmlMapStringAdapter extends XmlAdapter<String, Map<String, String>> {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Map<String, String> unmarshal(String v) throws Exception {
     return TextEncodingUtility.decodeKVMap(v);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String marshal(Map<String, String> v) throws Exception {
     return TextEncodingUtility.encodeKVMap(v);
