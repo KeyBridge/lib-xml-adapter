@@ -9,8 +9,6 @@
  */
 package ch.keybridge.xml.adapter;
 
-import ch.keybridge.xml.adapter.XmlDouble02PrecisionAdapter;
-import ch.keybridge.xml.adapter.XmlDouble06PrecisionAdapter;
 import junit.framework.TestCase;
 
 /**
@@ -28,7 +26,7 @@ public class XmlPrecisionAdapter02Test extends TestCase {
     XmlDouble02PrecisionAdapter adapter = new XmlDouble02PrecisionAdapter();
 
     Double d = 1219.0570068359375;
-    String result = adapter.marshal(d);
+    Double result = adapter.marshal(d);
     System.out.println(d + " rounded to two places " + result + " and back again " + adapter.unmarshal(result));
 
   }
@@ -38,7 +36,7 @@ public class XmlPrecisionAdapter02Test extends TestCase {
     XmlDouble06PrecisionAdapter adapter = new XmlDouble06PrecisionAdapter();
 
     Double d = 1219.0570068359375;
-    String result = adapter.marshal(d);
+    Double result = adapter.marshal(d);
     System.out.println(d + " rounded to six places " + result + " and back again " + adapter.unmarshal(result));
 
   }
