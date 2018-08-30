@@ -13,155 +13,43 @@
  */
 package ch.keybridge.xml.adapter;
 
-import ch.keybridge.xml.adapter.map.MapEntrySet;
-import ch.keybridge.xml.adapter.map.MapEntryType;
-import java.time.*;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import ch.keybridge.xml.adapter.map.EntrySet;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * XmlAdapter implementation to marshal and unmarshal a generic MAP instance.
- * The MARSHAL function calls {@code String.valueOf()} on the key/value entries.
- * The UNMARSHAL function returns a map of [String, String] values.
+ * XmlAdapter implementation to marshal and unmarshal a [String, String] MAP
+ * instance. T
  *
  * @author Key Bridge LLC
  * @since v1.2.0 - added 06/10/18
  */
-public class XmlMapAdapter extends XmlAdapter<MapEntrySet, Map<String, Object>> {
-
-  private static final Logger LOGGER = Logger.getLogger(XmlMapAdapter.class.getName());
+public class XmlMapAdapter extends XmlAdapter<EntrySet, Map<String, String>> {
 
   /**
-   * A map of XML adapters.
+   * {@inheritDoc}
    */
-  private static final Map<Class<?>, Class<?>> ADAPTERS;
-
-  static {
-    ADAPTERS = new HashMap<>();
-
-    // java.lang
-    ADAPTERS.put(Boolean.class, XmlBooleanAdapter.class);
-    ADAPTERS.put(Double.class, XmlDoubleAdapter.class);
-    ADAPTERS.put(Float.class, XmlFloatAdapter.class);
-    ADAPTERS.put(Integer.class, XmlIntegerAdapter.class);
-    ADAPTERS.put(Long.class, XmlLongAdapter.class);
-    ADAPTERS.put(Short.class, XmlShortAdapter.class);
-
-    // jts
-//    ADAPTERS.put(Envelope.class, XmlEnvelopeAdapter.class);
-//    ADAPTERS.put(Geometry.class, XmlGeometryAdapter.class);
-    // java.util
-    ADAPTERS.put(Date.class, XmlDateTimeAdapter.class);
-    ADAPTERS.put(GregorianCalendar.class, XmlCalendarAdapter.class);
-    ADAPTERS.put(Locale.class, XmlLocaleAdapter.class);
-    ADAPTERS.put(TimeZone.class, XmlTimeZoneAdapter.class);
-
-    // java.time
-    ADAPTERS.put(ChronoUnit.class, XmlChronoUnitAdapter.class);
-    ADAPTERS.put(Duration.class, XmlDurationAdapter.class);
-    ADAPTERS.put(LocalDate.class, XmlLocalDateAdapter.class);
-    ADAPTERS.put(LocalDateTime.class, XmlLocalDateTimeAdapter.class);
-    ADAPTERS.put(Period.class, XmlPeriodAdapter.class);
-    ADAPTERS.put(ZoneId.class, XmlZoneIdAdapter.class);
-    ADAPTERS.put(ZonedDateTime.class, XmlZonedDateTimeAdapter.class);
-  }
-
-  /**
-   * Internal method to scan the set of configured adapters for an
-   * implementation that can handle the indicated class type.
-   *
-   * @param clazz the class type to transform
-   * @return an adapter instance; null if none exist
-   * @throws Exception if the adapter instance cannot be created
-   */
-  private XmlAdapter findAdapter(Class<?> clazz) throws Exception {
-    for (Map.Entry<Class<?>, Class<?>> entry : ADAPTERS.entrySet()) {
-      if (entry.getKey().isAssignableFrom(clazz)) {
-        return (XmlAdapter) entry.getValue().newInstance();
-      }
-    }
-    return null;
+  @Override
+  public Map<String, String> unmarshal(EntrySet v) throws Exception {
+    return v == null
+           ? null
+           : v.getEntries().stream()
+        .collect(Collectors.toMap(e -> (String) e.getKey(),
+                                  e -> (String) e.getValue()));
   }
 
   /**
    * {@inheritDoc}
-   * <p>
-   * Parses a sequence of Entries into a HashMap.
    */
   @Override
-  public Map<String, Object> unmarshal(MapEntrySet entryList) throws Exception {
-    if (entryList == null) {
+  public EntrySet marshal(Map<String, String> v) throws Exception {
+    if (v == null) {
       return null;
     }
-    HashMap<String, Object> hashMap = new HashMap<>();
-    entryList.getEntry().forEach((myEntryType) -> {
-      try {
-        /**
-         * Try to find and use the appropriate adapter.
-         */
-        XmlAdapter adapter = findAdapter(Class.forName(myEntryType.clazz));
-        if (adapter != null) {
-          hashMap.put(myEntryType.key,
-                      adapter.unmarshal(myEntryType.value));
-        } else {
-          LOGGER.log(Level.FINE, "Unrecognized class type. No adapter for {0}", myEntryType.clazz);
-          hashMap.put(myEntryType.key, myEntryType.value);
-        }
-      } catch (Exception ex) {
-        LOGGER.log(Level.WARNING, "Unrecognized class type. Unmarshal from String failed for {0}", myEntryType.clazz);
-      }
-    });
-    return hashMap;
-  }
-
-  /**
-   * {@inheritDoc}
-   * <p>
-   * Parses a HashMap into an ArrayList of Entries.
-   */
-  @Override
-  public MapEntrySet marshal(Map<String, Object> entryMap) throws Exception {
-    if (entryMap == null) {
-      return null;
-    }
-    MapEntrySet myMapType = new MapEntrySet();
-    entryMap.entrySet().stream().map((entry) -> {
-      /**
-       * Transform the Entry to an EntryType.
-       */
-      MapEntryType entryType = new MapEntryType();
-      entryType.key = entry.getKey();
-      entryType.clazz = entry.getValue().getClass().getName();
-      /**
-       * If an adapter exists for the type then use it. Otherwise convert to
-       * String.
-       */
-      try {
-        XmlAdapter adapter = findAdapter(entry.getValue().getClass());
-        if (adapter != null) {
-          entryType.value = (String) adapter.marshal(entry.getValue());
-        } else {
-          LOGGER.log(Level.FINE, "Unrecognized class type. No adapter for {0}", entry.getValue().getClass());
-          entryType.value = String.valueOf(entry.getValue());
-        }
-      } catch (Exception exception) {
-        LOGGER.log(Level.WARNING, "Unexpected error unmarshaling {0} for value {1}.  {2}", new Object[]{entry.getValue().getClass(), entry.getValue(), exception.getMessage()});
-        entryType.value = String.valueOf(entry.getValue());
-      }
-
-      return entryType;
-
-    }).forEach((entryType) -> {
-      /**
-       * Add the new EntryType to the EntryList.
-       */
-      myMapType.getEntry().add(entryType);
-    });
-
-    return myMapType;
+    return new EntrySet(v.entrySet().stream()
+      .map(e -> new EntrySet.SimpleEntry(e.getKey(), e.getValue()))
+      .collect(Collectors.toList()));
   }
 
 }

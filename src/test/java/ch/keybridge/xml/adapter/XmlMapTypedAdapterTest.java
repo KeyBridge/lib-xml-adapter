@@ -19,7 +19,7 @@
 package ch.keybridge.xml.adapter;
 
 import ch.keybridge.xml.JaxbUtility;
-import ch.keybridge.xml.adapter.map.EntrySet;
+import ch.keybridge.xml.adapter.map.MapEntrySet;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -33,16 +33,16 @@ import org.junit.Test;
  *
  * @author Key Bridge
  */
-public class XmlMapAdapterTest {
+public class XmlMapTypedAdapterTest {
 
-  private XmlMapAdapter adapter;
+  private XmlMapTypedAdapter adapter;
 
-  public XmlMapAdapterTest() {
+  public XmlMapTypedAdapterTest() {
   }
 
   @Before
   public void setUp() {
-    this.adapter = new XmlMapAdapter();
+    this.adapter = new XmlMapTypedAdapter();
   }
 
   @Test
@@ -57,6 +57,7 @@ public class XmlMapAdapterTest {
     entryMap.put("english", Locale.ENGLISH);
     entryMap.put("local-now", LocalDateTime.now());
     entryMap.put("zoned-now", ZonedDateTime.now());
+
     entryMap.put("string1", "four score");
     entryMap.put("string2", "lorem ipsum");
 
@@ -66,43 +67,23 @@ public class XmlMapAdapterTest {
      * not conveyed. Calendar and Date are rounded to the nearest second.
      */
     //    entryMap.put("calendar", Calendar.getInstance(Locale.ITALY));
-    EntrySet entrySet = new EntrySet();
-//    entrySet.put("string1", "four score");
-//    entrySet.put("string2", "lorem ipsum");
-
-    entryMap.entrySet().forEach(e -> entrySet.put(e.getKey(), String.valueOf(e.getValue())));
-
-//    for (Map.Entry<String, Object> entry : entryMap.entrySet()) {
-//      entrySet.getEntries().add(new EntrySet.SimpleEntry(entry.getKey(), entry.getValue()));
-//    }
 //    entryMap.put("date", new Date());
-//    EntrySet entryList = adapter.marshal(entryMap);
-    String xml = JaxbUtility.marshal(entrySet);
+    MapEntrySet entryList = adapter.marshal(entryMap);
+
+    String xml = JaxbUtility.marshal(entryList);
 
     System.out.println(xml);
 
-    Map<String, String> map = adapter.unmarshal(entrySet);
+    Map<String, Object> unmarshal = adapter.unmarshal(entryList);
 
-    for (Map.Entry<String, String> entry : map.entrySet()) {
-      System.out.println("  " + entry);
+//    System.out.println(unmarshal);
+    for (Map.Entry<String, Object> entry : unmarshal.entrySet()) {
+      System.out.println("  entry " + entry + " " + entry.getValue().getClass().getName());
     }
 
-    EntrySet set = adapter.marshal(map);
-
-    System.out.println(JaxbUtility.marshal(set));
-
-    Assert.assertEquals(entrySet, set);
-
-//    unmarshal = adapter.unmarshal(xml);
-//
-////    System.out.println(unmarshal);
-//    for (Map.Entry<Object, Object> entry : unmarshal.entrySet()) {
-//      System.out.println("  entry " + entry + " " + entry.getValue().getClass().getName());
-//    }
-//
-//    for (Map.Entry<Object, Object> entry : unmarshal.entrySet()) {
-//      Assert.assertEquals(entryMap.get(entry.getKey()), entry.getValue());
-//    }
+    for (Map.Entry<String, Object> entry : unmarshal.entrySet()) {
+      Assert.assertEquals(entryMap.get(entry.getKey()), entry.getValue());
+    }
   }
 
 }
