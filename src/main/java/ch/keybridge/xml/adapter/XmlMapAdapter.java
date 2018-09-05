@@ -35,8 +35,9 @@ public class XmlMapAdapter extends XmlAdapter<EntrySet, Map<String, String>> {
     return v == null
            ? null
            : v.getEntries().stream()
-        .collect(Collectors.toMap(e -> (String) e.getKey(),
-                                  e -> (String) e.getValue()));
+        .filter(e -> e.getKey() != null)
+        .filter(e -> !e.getKey().isEmpty())
+        .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
   }
 
   /**
@@ -48,7 +49,9 @@ public class XmlMapAdapter extends XmlAdapter<EntrySet, Map<String, String>> {
       return null;
     }
     return new EntrySet(v.entrySet().stream()
-      .map(e -> new EntrySet.SimpleEntry(e.getKey(), e.getValue()))
+      .filter(e -> e.getKey() != null)
+      .filter(e -> !e.getKey().isEmpty())
+      .map(e -> new EntrySet.SimpleEntry(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
       .collect(Collectors.toList()));
   }
 
