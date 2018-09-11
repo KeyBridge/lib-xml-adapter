@@ -116,6 +116,9 @@ public class EntrySet implements Serializable {
     @XmlValue
     private String value;
 
+    public SimpleEntry() {
+    }
+
     public SimpleEntry(String key, String value) {
       this.key = key;
       this.value = value;
