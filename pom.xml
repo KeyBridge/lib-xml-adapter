@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>keybridge.lib</groupId>
   <artifactId>xml-adapter</artifactId>
-  <version>1.6.0</version>
+  <version>2.0.0</version>
   <packaging>jar</packaging>
 
   <name>lib-xml-adapter</name>
@@ -29,6 +29,7 @@
     v1.4.0 - rewrite XmlMapAdapter to include smart object instantiation
     v1.5.0 - refactor into 'ch.keybridge.xml' package; add package-info
     v1.6.0 - rewrire map adapter
+    v2.0.0 - refactor to lib directory
 
   </description>
 
