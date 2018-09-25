@@ -33,6 +33,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.w3c.dom.Document;
 
 /**
@@ -200,6 +202,10 @@ public class JaxbUtility {
      */
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(SerializationFeature.INDENT_OUTPUT, indented);
+    /**
+     * Enable JAXB annotation processing.
+     */
+    objectMapper.registerModule(new JaxbAnnotationModule());
 //    objectMapper.configure(SerializationFeature.WRITE_DATES_WITH_ZONE_ID, true);
     StringWriter stringWriter = new StringWriter();
     objectMapper.writeValue(stringWriter, clazz); // throws IOException, JsonGenerationException, JsonMappingException
@@ -226,6 +232,10 @@ public class JaxbUtility {
      * and JsonGenerator for implementing actual reading/writing of JSON.
      */
     ObjectMapper objectMapper = new ObjectMapper();
+    /**
+     * Enable JAXB annotation processing.
+     */
+    objectMapper.registerModule(new JaxbAnnotationModule());
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     return objectMapper.readValue(json, clazz); // throws IOException, JsonGenerationException, JsonMappingException
   }
