@@ -19,7 +19,7 @@ public class XmlBooleanAdapter extends XmlAdapter<String, Boolean> {
    * {@inheritDoc}
    */
   @Override
-  public Boolean unmarshal(String v) throws Exception {
+  public Boolean unmarshal(String v) {
     return Boolean.valueOf(v);
   }
 
@@ -27,7 +27,7 @@ public class XmlBooleanAdapter extends XmlAdapter<String, Boolean> {
    * {@inheritDoc}
    */
   @Override
-  public String marshal(Boolean v) throws Exception {
+  public String marshal(Boolean v) {
     if (v == null) {
       return null;
     }
