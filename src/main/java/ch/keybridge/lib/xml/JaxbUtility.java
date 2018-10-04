@@ -17,12 +17,8 @@ package ch.keybridge.lib.xml;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
+import org.w3c.dom.Document;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -33,9 +29,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import org.w3c.dom.Document;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * Common JAXB marshaling and un-marshaling utilities.
@@ -205,7 +204,6 @@ public class JaxbUtility {
     /**
      * Enable JAXB annotation processing.
      */
-    objectMapper.registerModule(new JaxbAnnotationModule());
 //    objectMapper.configure(SerializationFeature.WRITE_DATES_WITH_ZONE_ID, true);
     StringWriter stringWriter = new StringWriter();
     objectMapper.writeValue(stringWriter, clazz); // throws IOException, JsonGenerationException, JsonMappingException
@@ -235,7 +233,6 @@ public class JaxbUtility {
     /**
      * Enable JAXB annotation processing.
      */
-    objectMapper.registerModule(new JaxbAnnotationModule());
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     return objectMapper.readValue(json, clazz); // throws IOException, JsonGenerationException, JsonMappingException
   }
