@@ -13,7 +13,7 @@
  */
 package ch.keybridge.lib.xml;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.xml.bind.annotation.*;
@@ -356,7 +356,7 @@ public class Address implements Serializable, Comparable<Address> {
    *
    * @return true if the Address record fields are all populated
    */
-  @JsonIgnore
+//  @JsonIgnore
   public boolean isComplete() {
     return street != null && !street.isEmpty()
       && city != null && !city.isEmpty()

@@ -14,9 +14,6 @@
  */
 package ch.keybridge.lib.xml;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.w3c.dom.Document;
 
 import javax.xml.bind.JAXBContext;
@@ -30,7 +27,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -176,10 +172,9 @@ public class JaxbUtility {
    * @return the entity class serialized into JSON form
    * @throws IOException if the entity class cannot be marshaled (serialized)
    */
-  public static <T> String toJson(T clazz) throws IOException {
-    return toJson(clazz, false);
-  }
-
+//  public static <T> String toJson(T clazz) throws IOException {
+//    return toJson(clazz, false);
+//  }
   /**
    * Marshal an entity class into a JSON String representation.
    * <p>
@@ -192,24 +187,23 @@ public class JaxbUtility {
    * @return the entity class serialized into JSON form
    * @throws IOException if the entity class cannot be marshaled (serialized)
    */
-  public static <T> String toJson(T clazz, boolean indented) throws IOException {
-    /**
-     * This mapper (or, data binder, or codec) provides functionality for
-     * converting between Java objects (instances of JDK provided core classes,
-     * beans), and matching JSON constructs. It will use instances of JsonParser
-     * and JsonGenerator for implementing actual reading/writing of JSON.
-     */
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, indented);
-    /**
-     * Enable JAXB annotation processing.
-     */
-//    objectMapper.configure(SerializationFeature.WRITE_DATES_WITH_ZONE_ID, true);
-    StringWriter stringWriter = new StringWriter();
-    objectMapper.writeValue(stringWriter, clazz); // throws IOException, JsonGenerationException, JsonMappingException
-    return stringWriter.toString();
-  }
-
+//  public static <T> String toJson(T clazz, boolean indented) throws IOException {
+//    /**
+//     * This mapper (or, data binder, or codec) provides functionality for
+//     * converting between Java objects (instances of JDK provided core classes,
+//     * beans), and matching JSON constructs. It will use instances of JsonParser
+//     * and JsonGenerator for implementing actual reading/writing of JSON.
+//     */
+//    ObjectMapper objectMapper = new ObjectMapper();
+//    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, indented);
+//    /**
+//     * Enable JAXB annotation processing.
+//     */
+////    objectMapper.configure(SerializationFeature.WRITE_DATES_WITH_ZONE_ID, true);
+//    StringWriter stringWriter = new StringWriter();
+//    objectMapper.writeValue(stringWriter, clazz); // throws IOException, JsonGenerationException, JsonMappingException
+//    return stringWriter.toString();
+//  }
   /**
    * Parse an JSON string into a container class. This method calls the JAXB
    * un-marshaller and returns a class containing all of the content defined in
@@ -222,19 +216,18 @@ public class JaxbUtility {
    * @return the XML source file parsed into the identified class type
    * @throws IOException if the source does not match the input class type
    */
-  public static <T> T fromJson(String json, Class<T> clazz) throws IOException {
-    /**
-     * This mapper (or, data binder, or codec) provides functionality for
-     * converting between Java objects (instances of JDK provided core classes,
-     * beans), and matching JSON constructs. It will use instances of JsonParser
-     * and JsonGenerator for implementing actual reading/writing of JSON.
-     */
-    ObjectMapper objectMapper = new ObjectMapper();
-    /**
-     * Enable JAXB annotation processing.
-     */
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    return objectMapper.readValue(json, clazz); // throws IOException, JsonGenerationException, JsonMappingException
-  }
-
+//  public static <T> T fromJson(String json, Class<T> clazz) throws IOException {
+//    /**
+//     * This mapper (or, data binder, or codec) provides functionality for
+//     * converting between Java objects (instances of JDK provided core classes,
+//     * beans), and matching JSON constructs. It will use instances of JsonParser
+//     * and JsonGenerator for implementing actual reading/writing of JSON.
+//     */
+//    ObjectMapper objectMapper = new ObjectMapper();
+//    /**
+//     * Enable JAXB annotation processing.
+//     */
+//    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//    return objectMapper.readValue(json, clazz); // throws IOException, JsonGenerationException, JsonMappingException
+//  }
 }

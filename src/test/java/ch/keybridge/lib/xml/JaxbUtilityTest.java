@@ -19,7 +19,6 @@
 package ch.keybridge.lib.xml;
 
 import ch.keybridge.lib.xml.JaxbUtility;
-import java.io.IOException;
 import javax.xml.bind.JAXBException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,16 +48,15 @@ public class JaxbUtilityTest {
     Assert.assertEquals(x, address);
   }
 
-  @Test
-  public void testJSONSerialization() throws IOException {
-    String json = JaxbUtility.toJson(address);
-    System.out.println("JSON: ");
-    System.out.println(json);
-
-    Address a = JaxbUtility.fromJson(json, Address.class);
-
-    System.out.println("read: " + a);
-
-  }
-
+//  @Test
+//  public void testJSONSerialization() throws IOException {
+//    String json = JaxbUtility.toJson(address);
+//    System.out.println("JSON: ");
+//    System.out.println(json);
+//
+//    Address a = JaxbUtility.fromJson(json, Address.class);
+//
+//    System.out.println("read: " + a);
+//
+//  }
 }

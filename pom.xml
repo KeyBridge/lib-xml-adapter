@@ -31,7 +31,9 @@
     v1.6.0 - rewrire map adapter
     v2.0.0 - refactor to lib directory
     v2.0.1 - set Jackson marshaller to understand JAXB annotations
-    v2.0.2 - remove ability Jackson marshaller to understand JAXB annotations due to issues on a live deployment
+    v2.0.2 - remove ability Jackson marshaller to understand JAXB annotations due to issues on a live deployment,
+    json marshal / unmarshal to be moved to separate library
+
 
   </description>
 
@@ -47,14 +49,6 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <!--for JSON serialization-->
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.9.6</version>
-      <type>jar</type>
-      <scope>provided</scope>
-    </dependency>
 
     <dependency>
       <groupId>com.vividsolutions</groupId>
