@@ -57,11 +57,14 @@ public class XmlDateAdapter extends XmlAdapter<String, Date> {
    * @param v The date datatype string in the UTC time zone
    * @return a Date instance, normalized to UTC, null if the input string is
    *         null or empty.
-   * @throws ParseException if the datatype string fails to parse
    */
   @Override
-  public Date unmarshal(String v) throws ParseException {
-    return v != null ? dateFormatter.parse(v) : null;
+  public Date unmarshal(String v) {
+    try {
+      return v != null ? dateFormatter.parse(v) : null;
+    } catch (ParseException parseException) {
+      return null;
+    }
   }
 
   /**
