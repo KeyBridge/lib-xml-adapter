@@ -1,16 +1,16 @@
 /*
- *  Copyright (C) 2015 Caulfield IP Holdings (Caulfield) and/or its affiliates.
+ *  Copyright (C) 2015 Key Bridge and/or its affiliates.
  *  All rights reserved. Use is subject to license terms.
  *
- *  Software Code is protected by Caulfield Copyrights. Caulfield hereby reserves
- *  all rights in and to Caulfield Copyrights and no license is granted under
- *  Caulfield Copyrights in this Software License Agreement. Caulfield generally
- *  licenses Caulfield Copyrights for commercialization pursuant to the terms of
+ *  Software Code is protected by Copyrights. Key Bridge hereby reserves
+ *  all rights in and to Copyrights and no license is granted under
+ *  Copyrights in this Software License Agreement. Caulfield generally
+ *  licenses Copyrights for commercialization pursuant to the terms of
  *  either Caulfield's Standard Software Source Code License Agreement or
  *  Caulfield's Standard Product License Agreement.
  *
  *  A copy of either License Agreement can be obtained on request by email from:
- *  info@caufield.org.
+ *  information@keybridgewireless.com.
  */
 package ch.keybridge.lib.xml.adapter;
 
