@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Java XML adapter to translate between a standard java.time.ZonedDateTime
- * instance and the ISO 8601 Date format.
+ * instance and the ISO 8601 Date format. The ISO instant formatter that formats
+ * or parses an instant in UTC, such as '2011-12-03T10:15:30Z'.
  *
  * @see
  * <a href="http://docs.oracle.com/javase/7/docs/api/java/text/DateFormat.html">DateFormat</a>
@@ -20,6 +21,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * Formats</a>
  * @author Key Bridge LLC
  * @since v1.1.1 added 10/22/15
+ * @since v2.0.3 change format from ISO_ZONED_DATE_TIME to ISO_INSTANT
  */
 public class XmlZonedDateTimeAdapter extends XmlAdapter<String, ZonedDateTime> {
 
@@ -29,7 +31,7 @@ public class XmlZonedDateTimeAdapter extends XmlAdapter<String, ZonedDateTime> {
    * capable of formatting and parsing the ISO-8601 extended offset date-time
    * format.
    */
-  private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+  private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_INSTANT;
 
   /**
    * {@inheritDoc}

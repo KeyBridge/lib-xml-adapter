@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>keybridge.lib</groupId>
   <artifactId>xml-adapter</artifactId>
-  <version>2.0.2</version>
+  <version>2.0.3</version>
   <packaging>jar</packaging>
 
   <name>lib-xml-adapter</name>
@@ -33,7 +33,7 @@
     v2.0.1 - set Jackson marshaller to understand JAXB annotations
     v2.0.2 - remove ability Jackson marshaller to understand JAXB annotations due to issues on a live deployment,
     json marshal / unmarshal to be moved to separate library
-
+    v2.0.3 - change zoned format from ISO_ZONED_DATE_TIME to ISO_INSTANT
 
   </description>
 
