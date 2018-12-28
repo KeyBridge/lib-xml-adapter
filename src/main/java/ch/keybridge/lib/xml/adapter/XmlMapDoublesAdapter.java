@@ -13,8 +13,8 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import com.vividsolutions.jts.geom.*;
-import com.vividsolutions.jts.io.WKTReader;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.io.WKTReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
