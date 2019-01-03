@@ -96,8 +96,8 @@ public class XmlBase64CompressedAdapter extends XmlAdapter<String, byte[]> {
     ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
     GZIPOutputStream gzipStream = new GZIPOutputStream(byteStream);
     gzipStream.write(v);
-    byteStream.close();
     gzipStream.close();
+    byteStream.close();
     return Base64.getMimeEncoder().encodeToString(byteStream.toByteArray());
   }
 
