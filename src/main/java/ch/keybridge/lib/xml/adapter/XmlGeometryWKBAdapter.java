@@ -15,7 +15,6 @@
 package ch.keybridge.lib.xml.adapter;
 
 import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.io.ByteOrderValues;
 import com.vividsolutions.jts.io.WKBReader;
 import com.vividsolutions.jts.io.WKBWriter;
 import java.util.logging.Level;
@@ -44,7 +43,7 @@ public class XmlGeometryWKBAdapter extends XmlAdapter<String, Geometry> {
   public String marshal(Geometry v) throws Exception {
     try {
       return v != null
-             ? DatatypeConverter.printHexBinary(new WKBWriter(2, ByteOrderValues.LITTLE_ENDIAN).write(v))
+             ? DatatypeConverter.printHexBinary(new WKBWriter(3).write(v))
              : null;
     } catch (Exception exception) {
       Logger.getLogger(XmlGeometryWKBAdapter.class.getSimpleName()).log(Level.SEVERE, "Error converting binary to geometry {0}", exception.getMessage());
