@@ -41,8 +41,13 @@ public class XmlDateAdapter extends XmlAdapter<String, Date> {
    * A ISO 8601 Date configuration.
    */
   private static final String PATTERN_DATE = "yyyy-MM-dd";
+  /**
+   * UTC (Coordinated Universal Time)
+   */
   private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
-
+  /**
+   * A date time formatter for the above declared pattern.
+   */
   private final SimpleDateFormat dateFormatter = new SimpleDateFormat(PATTERN_DATE);
 
   public XmlDateAdapter() {

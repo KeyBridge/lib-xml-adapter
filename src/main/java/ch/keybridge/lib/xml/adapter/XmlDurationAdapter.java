@@ -10,23 +10,8 @@ import java.time.Duration;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * Java XML adapter to translate between a standard java.util.Date instance and
- * the ISO 8601 Date and time format.
- * <p>
- * The International Standard for the representation of dates and times is ISO
- * 8601. ISO 8601 describes an internationally accepted way to represent dates
- * and times using numbers.
- * <p>
- * For example, September 27, 2012 is represented as 2012-09-27 according to the
- * pattern <code>YYYY-MM-DD</code>.
- * <p>
- * ISO 8601 describes a large number of date/time formats. For example it
- * defines Basic Format, without punctuation, and Extended Format, with
- * punctuation, and it allows elements to be omitted. Different standards may
- * need different levels of granularity in the date and time.
- * <p>
- * This profile defines a complete date plus time in UTC (Coordinated Universal
- * Time).
+ * Java XML adapter to translate between a standard java.time.Duration instance
+ * and ISO-8601 seconds based representation, such as PT8H6M12.345S
  *
  * @see
  * <a href="http://docs.oracle.com/javase/7/docs/api/java/text/DateFormat.html">DateFormat</a>

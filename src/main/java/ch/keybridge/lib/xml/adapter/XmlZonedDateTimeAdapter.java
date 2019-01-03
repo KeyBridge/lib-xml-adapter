@@ -31,14 +31,14 @@ public class XmlZonedDateTimeAdapter extends XmlAdapter<String, ZonedDateTime> {
    * capable of formatting and parsing the ISO-8601 extended offset date-time
    * format.
    */
-  private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_INSTANT;
+  private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_ZONED_DATE_TIME;
 
   /**
    * {@inheritDoc}
    */
   @Override
   public ZonedDateTime unmarshal(String v) throws ParseException {
-    return v != null ? ZonedDateTime.parse(v, dateTimeFormatter) : null;
+    return v != null ? ZonedDateTime.parse(v, DATETIME_FORMATTER) : null;
   }
 
   /**
@@ -48,6 +48,6 @@ public class XmlZonedDateTimeAdapter extends XmlAdapter<String, ZonedDateTime> {
    */
   @Override
   public String marshal(ZonedDateTime v) {
-    return v != null ? v.format(dateTimeFormatter) : null;
+    return v != null ? v.format(DATETIME_FORMATTER) : null;
   }
 }

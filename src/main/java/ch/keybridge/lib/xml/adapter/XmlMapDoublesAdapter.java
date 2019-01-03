@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * value pairs.
  * <p>
  * This produces a MULTIPOINT encoded String representation of the values. e.g.  <pre>
- * DOUBLES ((0.2630339 0.6184835), (0.2564003 0.1303474), (0.1430556 0.227002), (0.5152168 0.0071995))
+ * DOUBLE ((0.2630339 0.6184835), (0.2564003 0.1303474), (0.1430556 0.227002), (0.5152168 0.0071995))
  * </pre>
  *
  * @author Key Bridge LLC
