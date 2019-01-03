@@ -13,9 +13,7 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import ch.keybridge.lib.xml.adapter.XmlBase64CompressedAdapter;
-import ch.keybridge.lib.xml.adapter.XmlBase64Adapter;
-import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -35,8 +33,8 @@ public class XmlBase64AdapterTest {
     String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
     String base64 = adapter.marshal(loremIpsum.getBytes());
 
-    TestCase.assertNotNull(base64);
-    TestCase.assertTrue(base64.length() > 10);
+    Assert.assertNotNull(base64);
+    Assert.assertTrue(base64.length() > 10);
 
     System.out.println("Original size " + loremIpsum.length());
 
@@ -45,40 +43,14 @@ public class XmlBase64AdapterTest {
 
     byte[] bytes = adapter.unmarshal(base64);
 
-    TestCase.assertNotNull(bytes);
-    TestCase.assertTrue(bytes.length > 10);
+    Assert.assertNotNull(bytes);
+    Assert.assertTrue(bytes.length > 10);
 
     String reconstituted = new String(bytes);
 
-    TestCase.assertTrue(loremIpsum.equals(reconstituted));
+    Assert.assertTrue(loremIpsum.equals(reconstituted));
 
-  }
-
-  @Test
-  public void testCompressed() throws Exception {
-
-    XmlBase64CompressedAdapter adapter = new XmlBase64CompressedAdapter();
-
-    String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
-    String base64 = adapter.marshal(loremIpsum.getBytes());
-
-    TestCase.assertNotNull(base64);
-    TestCase.assertTrue(base64.length() > 10);
-
-    System.out.println("Original    size " + loremIpsum.length());
-
-    System.out.println("Compressed  size " + base64.length());
-    System.out.println("Base64: \n" + base64);
-
-    byte[] bytes = adapter.unmarshal(base64);
-
-    TestCase.assertNotNull(bytes);
-    TestCase.assertTrue(bytes.length > 10);
-
-    String reconstituted = new String(bytes);
-
-    TestCase.assertTrue(loremIpsum.equals(reconstituted));
-
+    System.out.println("XmlBase64AdapterTest OK");
   }
 
 }
