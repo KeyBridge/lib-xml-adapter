@@ -18,7 +18,6 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import ch.keybridge.lib.xml.adapter.XmlGeometryAdapter;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.PrecisionModel;
@@ -45,6 +44,9 @@ public class XmlGeometryAdapterTest {
     Point p = new Point(new Coordinate(123.321, 456.654), new PrecisionModel(), 0);
 
     XmlGeometryAdapter adapter = new XmlGeometryAdapter();
+
+    System.out.println("  Point " + adapter.marshal(p));
+
     Assert.assertEquals(p.toText(), adapter.marshal(p));
 
   }
