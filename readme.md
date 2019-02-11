@@ -8,7 +8,7 @@ Note that all dependencies are `provided` and must be included in your
 final application. These are:
     
   * com.fasterxml.jackson.core : jackson-databind
-  * com.vividsolutions : jts
+  * org.locationtech : jts
 
 ## History
 

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>keybridge.lib</groupId>
   <artifactId>xml-adapter</artifactId>
-  <version>2.1.0</version>
+  <version>3.0.0</version>
   <packaging>jar</packaging>
 
   <name>lib-xml-adapter</name>
@@ -15,7 +15,7 @@
     final application. These are:
 
     * com.fasterxml.jackson.core : jackson-databind
-    * com.vividsolutions : jts
+    * org.locationtech.jts : jts
 
     ## History
 
@@ -36,6 +36,10 @@
     v2.0.3 - change zoned format from ISO_ZONED_DATE_TIME to ISO_INSTANT
     v2.1.0 - add Currency adapter
 
+    History: v3.x branch
+    v3.0.0 - upgrade to use org.locationtech.jts  jts-core v1.16 or later
+
+
   </description>
 
   <organization>
@@ -47,16 +51,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    
+    <jts.version>1.16.0</jts.version>
   </properties>
 
   <dependencies>
 
     <dependency>
-      <groupId>com.vividsolutions</groupId>
-      <artifactId>jts</artifactId>
-      <version>1.13</version>
-      <type>jar</type>
-      <scope>provided</scope>
+      <groupId>org.locationtech.jts</groupId>
+      <artifactId>jts-core</artifactId>
+      <version>${jts.version}</version>
     </dependency>
 
     <dependency>
