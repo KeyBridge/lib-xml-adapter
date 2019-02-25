@@ -23,9 +23,9 @@ import javax.xml.bind.annotation.*;
 /**
  * A entry type containing a String ID and a String value.
  */
-@XmlType(name = "MapEntryType")
+@XmlType(name = "TypedEntry")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MapEntryType {
+public class TypedEntry {
 
   /**
    * The Map entry key index.

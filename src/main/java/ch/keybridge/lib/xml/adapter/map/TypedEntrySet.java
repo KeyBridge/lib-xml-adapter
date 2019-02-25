@@ -26,19 +26,19 @@ import javax.xml.bind.annotation.*;
 /**
  * A List of entries. Each entry is labeled "Entry".
  */
-@XmlRootElement(name = "MapEntrySet")
-@XmlType(name = "MapEntrySet")
+@XmlRootElement(name = "TypedEntrySet")
+@XmlType(name = "TypedEntrySet")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MapEntrySet implements Serializable {
+public class TypedEntrySet implements Serializable {
 
   /**
    * A simple arrayList of MapEntryType containers.
    */
-  @XmlElement(name = "Entry")
-  private Collection<MapEntryType> entry;
+  @XmlElement(name = "Entries")
+  private Collection<TypedEntry> entries;
 
-  public MapEntrySet() {
-    this.entry = new ArrayList<>();
+  public TypedEntrySet() {
+    this.entries = new ArrayList<>();
   }
 
   /**
@@ -46,11 +46,11 @@ public class MapEntrySet implements Serializable {
    *
    * @return a non-null ArrayList
    */
-  public Collection<MapEntryType> getEntry() {
-    if (entry == null) {
-      entry = new ArrayList<>();
+  public Collection<TypedEntry> getEntries() {
+    if (entries == null) {
+      entries = new ArrayList<>();
     }
-    return entry;
+    return entries;
   }
 
 }

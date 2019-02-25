@@ -20,7 +20,7 @@ package ch.keybridge.lib.xml.adapter;
 
 import ch.keybridge.lib.xml.adapter.XmlMapTypedAdapter;
 import ch.keybridge.lib.xml.JaxbUtility;
-import ch.keybridge.lib.xml.adapter.map.MapEntrySet;
+import ch.keybridge.lib.xml.adapter.map.TypedEntrySet;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -69,7 +69,7 @@ public class XmlMapTypedAdapterTest {
      */
     //    entryMap.put("calendar", Calendar.getInstance(Locale.ITALY));
 //    entryMap.put("date", new Date());
-    MapEntrySet entryList = adapter.marshal(entryMap);
+    TypedEntrySet entryList = adapter.marshal(entryMap);
 
     String xml = JaxbUtility.marshal(entryList);
 

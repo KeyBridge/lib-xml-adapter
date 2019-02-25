@@ -38,8 +38,8 @@ public class EntrySet implements Serializable {
   /**
    * The (sorted) list of entries.
    */
-  @XmlElement(name = "Entry")
-  private Collection<SimpleEntry> entries;
+  @XmlElement(name = "Entries")
+  private Collection<Entry> entries;
 
   public EntrySet() {
     entries = new TreeSet<>();
@@ -50,27 +50,27 @@ public class EntrySet implements Serializable {
       map.entrySet().stream()
         .filter(e -> e.getKey() != null)
         .filter(e -> !e.getKey().isEmpty())
-        .map(e -> new SimpleEntry(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
+        .map(e -> new Entry(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
         .collect(Collectors.toList()));
   }
 
-  public EntrySet(Collection<SimpleEntry> entries) {
+  public EntrySet(Collection<Entry> entries) {
     this.entries = entries != null ? new TreeSet<>(entries) : new TreeSet<>();
   }
 
-  public Collection<SimpleEntry> getEntries() {
+  public Collection<Entry> getEntries() {
     if (entries == null) {
       entries = new TreeSet<>();
     }
     return entries;
   }
 
-  public void setEntries(List<SimpleEntry> entries) {
+  public void setEntries(List<Entry> entries) {
     this.entries = entries;
   }
 
   public void put(String key, String value) {
-    entries.add(new SimpleEntry(key, value));
+    entries.add(new Entry(key, value));
   }
 
   public Map<String, String> asMap() {

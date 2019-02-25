@@ -31,10 +31,10 @@ import javax.xml.bind.annotation.*;
  *
  * @since 1.6
  */
-@XmlRootElement(name = "SimpleEntry")
-@XmlType(name = "SimpleEntry")
+@XmlRootElement(name = "Entry")
+@XmlType(name = "Entry")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SimpleEntry implements Serializable, Comparable<SimpleEntry> {
+public class Entry implements Serializable, Comparable<Entry> {
 
   /**
    * The entry key.
@@ -47,10 +47,10 @@ public class SimpleEntry implements Serializable, Comparable<SimpleEntry> {
   @XmlValue
   private String value;
 
-  public SimpleEntry() {
+  public Entry() {
   }
 
-  public SimpleEntry(String key, String value) {
+  public Entry(String key, String value) {
     this.key = key;
     this.value = value;
   }
@@ -72,7 +72,7 @@ public class SimpleEntry implements Serializable, Comparable<SimpleEntry> {
   }
 
   @Override
-  public int compareTo(SimpleEntry o) {
+  public int compareTo(Entry o) {
     return key.compareTo(o.getKey());
   }
 
@@ -94,7 +94,7 @@ public class SimpleEntry implements Serializable, Comparable<SimpleEntry> {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final SimpleEntry other = (SimpleEntry) obj;
+    final Entry other = (Entry) obj;
     return Objects.equals(this.key, other.key);
   }
 

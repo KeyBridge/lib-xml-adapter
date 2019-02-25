@@ -13,8 +13,8 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import ch.keybridge.lib.xml.adapter.map.MapEntrySet;
-import ch.keybridge.lib.xml.adapter.map.MapEntryType;
+import ch.keybridge.lib.xml.adapter.map.TypedEntrySet;
+import ch.keybridge.lib.xml.adapter.map.TypedEntry;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Key Bridge LLC
  * @since v1.2.0 - added 06/10/18
  */
-public class XmlMapTypedAdapter extends XmlAdapter<MapEntrySet, Map<String, Object>> {
+public class XmlMapTypedAdapter extends XmlAdapter<TypedEntrySet, Map<String, Object>> {
 
   private static final Logger LOGGER = Logger.getLogger(XmlMapTypedAdapter.class.getName());
 
@@ -92,12 +92,12 @@ public class XmlMapTypedAdapter extends XmlAdapter<MapEntrySet, Map<String, Obje
    * Parses a sequence of Entries into a HashMap.
    */
   @Override
-  public Map<String, Object> unmarshal(MapEntrySet entryList) throws Exception {
+  public Map<String, Object> unmarshal(TypedEntrySet entryList) throws Exception {
     if (entryList == null) {
       return null;
     }
     HashMap<String, Object> hashMap = new HashMap<>();
-    entryList.getEntry().forEach((myEntryType) -> {
+    entryList.getEntries().forEach((myEntryType) -> {
       try {
         /**
          * Try to find and use the appropriate adapter.
@@ -123,16 +123,16 @@ public class XmlMapTypedAdapter extends XmlAdapter<MapEntrySet, Map<String, Obje
    * Parses a HashMap into an ArrayList of Entries.
    */
   @Override
-  public MapEntrySet marshal(Map<String, Object> entryMap) throws Exception {
+  public TypedEntrySet marshal(Map<String, Object> entryMap) throws Exception {
     if (entryMap == null) {
       return null;
     }
-    MapEntrySet myMapType = new MapEntrySet();
+    TypedEntrySet myMapType = new TypedEntrySet();
     entryMap.entrySet().stream().map((entry) -> {
       /**
        * Transform the Entry to an EntryType.
        */
-      MapEntryType entryType = new MapEntryType();
+      TypedEntry entryType = new TypedEntry();
       entryType.key = entry.getKey();
       entryType.clazz = entry.getValue().getClass().getName();
       /**
@@ -158,7 +158,7 @@ public class XmlMapTypedAdapter extends XmlAdapter<MapEntrySet, Map<String, Obje
       /**
        * Add the new EntryType to the EntryList.
        */
-      myMapType.getEntry().add(entryType);
+      myMapType.getEntries().add(entryType);
     });
 
     return myMapType;
