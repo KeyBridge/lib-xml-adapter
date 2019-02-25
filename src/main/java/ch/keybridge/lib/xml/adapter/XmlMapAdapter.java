@@ -15,7 +15,6 @@ package ch.keybridge.lib.xml.adapter;
 
 import ch.keybridge.lib.xml.adapter.map.EntrySet;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -32,12 +31,7 @@ public class XmlMapAdapter extends XmlAdapter<EntrySet, Map<String, String>> {
    */
   @Override
   public Map<String, String> unmarshal(EntrySet v) throws Exception {
-    return v == null
-           ? null
-           : v.getEntries().stream()
-        .filter(e -> e.getKey() != null)
-        .filter(e -> !e.getKey().isEmpty())
-        .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+    return v == null ? null : v.asMap();
   }
 
   /**
@@ -45,14 +39,7 @@ public class XmlMapAdapter extends XmlAdapter<EntrySet, Map<String, String>> {
    */
   @Override
   public EntrySet marshal(Map<String, String> v) throws Exception {
-    if (v == null) {
-      return null;
-    }
-    return new EntrySet(v.entrySet().stream()
-      .filter(e -> e.getKey() != null)
-      .filter(e -> !e.getKey().isEmpty())
-      .map(e -> new EntrySet.SimpleEntry(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
-      .collect(Collectors.toList()));
+    return v == null ? null : new EntrySet(v);
   }
 
 }

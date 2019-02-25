@@ -19,10 +19,8 @@
 package ch.keybridge.lib.xml.adapter.map;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.stream.Collectors;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -47,6 +45,14 @@ public class EntrySet implements Serializable {
     entries = new TreeSet<>();
   }
 
+  public EntrySet(Map<String, String> map) {
+    this.entries = map.entrySet().stream()
+      .filter(e -> e.getKey() != null)
+      .filter(e -> !e.getKey().isEmpty())
+      .map(e -> new SimpleEntry(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
+      .collect(Collectors.toList());
+  }
+
   public EntrySet(Collection<SimpleEntry> entries) {
     this.entries = entries != null ? new TreeSet<>(entries) : new TreeSet<>();
   }
@@ -64,6 +70,13 @@ public class EntrySet implements Serializable {
 
   public void put(String key, String value) {
     entries.add(new SimpleEntry(key, value));
+  }
+
+  public Map<String, String> asMap() {
+    return entries.stream()
+      .filter(e -> e.getKey() != null)
+      .filter(e -> !e.getKey().isEmpty())
+      .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
   }
 
   @Override
@@ -85,87 +98,7 @@ public class EntrySet implements Serializable {
       return false;
     }
     final EntrySet other = (EntrySet) obj;
-    if (!Objects.equals(this.entries, other.entries)) {
-      return false;
-    }
-    return true;
+    return Objects.equals(this.entries, other.entries);
   }
 
-  /**
-   * An Entry maintaining a key and a value. The value may be changed using the
-   * {@code setValue} method. This class facilitates the process of building
-   * custom map implementations. For example, it may be convenient to return
-   * arrays of {@code SimpleEntry} instances in method
-   * {@code Map.entrySet().toArray}.
-   *
-   * @since 1.6
-   */
-  @XmlType(name = "SimpleEntry")
-  @XmlAccessorType(XmlAccessType.FIELD)
-  public static class SimpleEntry implements Serializable, Comparable<SimpleEntry> {
-
-    private static final long serialVersionUID = -8499721149061103585L;
-    /**
-     * The entry key.
-     */
-    @XmlAttribute
-    private String key;
-    /**
-     * The entry value.
-     */
-    @XmlValue
-    private String value;
-
-    public SimpleEntry() {
-    }
-
-    public SimpleEntry(String key, String value) {
-      this.key = key;
-      this.value = value;
-    }
-
-    public String getKey() {
-      return key;
-    }
-
-    public void setKey(String key) {
-      this.key = key;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    public void setValue(String value) {
-      this.value = value;
-    }
-
-    @Override
-    public int compareTo(SimpleEntry o) {
-      return key.compareTo(o.getKey());
-    }
-
-    @Override
-    public int hashCode() {
-      int hash = 3;
-      hash = 89 * hash + Objects.hashCode(this.key);
-      return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-      if (this == obj) {
-        return true;
-      }
-      if (obj == null) {
-        return false;
-      }
-      if (getClass() != obj.getClass()) {
-        return false;
-      }
-      final SimpleEntry other = (SimpleEntry) obj;
-      return Objects.equals(this.key, other.key);
-    }
-
-  }
 }

@@ -18,7 +18,6 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import ch.keybridge.lib.xml.adapter.XmlMapAdapter;
 import ch.keybridge.lib.xml.JaxbUtility;
 import ch.keybridge.lib.xml.adapter.map.EntrySet;
 import java.time.LocalDateTime;
