@@ -46,11 +46,12 @@ public class EntrySet implements Serializable {
   }
 
   public EntrySet(Map<String, String> map) {
-    this.entries = map.entrySet().stream()
-      .filter(e -> e.getKey() != null)
-      .filter(e -> !e.getKey().isEmpty())
-      .map(e -> new SimpleEntry(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
-      .collect(Collectors.toList());
+    entries = new TreeSet(
+      map.entrySet().stream()
+        .filter(e -> e.getKey() != null)
+        .filter(e -> !e.getKey().isEmpty())
+        .map(e -> new SimpleEntry(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
+        .collect(Collectors.toList()));
   }
 
   public EntrySet(Collection<SimpleEntry> entries) {
@@ -73,10 +74,10 @@ public class EntrySet implements Serializable {
   }
 
   public Map<String, String> asMap() {
-    return entries.stream()
+    return new TreeMap<>(entries.stream()
       .filter(e -> e.getKey() != null)
       .filter(e -> !e.getKey().isEmpty())
-      .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+      .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue())));
   }
 
   @Override
@@ -98,7 +99,7 @@ public class EntrySet implements Serializable {
       return false;
     }
     final EntrySet other = (EntrySet) obj;
-    return Objects.equals(this.entries, other.entries);
+    return this.entries.containsAll(other.entries) && other.entries.containsAll(entries);
   }
 
 }
