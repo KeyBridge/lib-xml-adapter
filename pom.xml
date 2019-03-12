@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>keybridge.lib</groupId>
   <artifactId>xml-adapter</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1</version>
   <packaging>jar</packaging>
 
   <name>lib-xml-adapter</name>
@@ -38,6 +38,7 @@
 
     History: v3.x branch
     v3.0.0 - upgrade to use org.locationtech.jts  jts-core v1.16 or later
+    v3.0.1 - fix map adapter XML package bug
 
 
   </description>
