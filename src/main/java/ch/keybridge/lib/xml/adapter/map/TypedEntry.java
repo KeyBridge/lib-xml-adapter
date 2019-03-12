@@ -18,6 +18,7 @@
  */
 package ch.keybridge.lib.xml.adapter.map;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.*;
 
 /**
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.*;
  */
 @XmlType(name = "TypedEntry")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TypedEntry {
+public class TypedEntry implements Serializable {
 
   /**
    * The Map entry key index.
@@ -35,7 +36,7 @@ public class TypedEntry {
   /**
    * The value class name.
    */
-  @XmlAttribute
+  @XmlAttribute(name = "class")
   public String clazz;
   /**
    * The Map entry value.

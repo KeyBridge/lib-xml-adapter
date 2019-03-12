@@ -23,56 +23,56 @@ import java.util.Objects;
 import javax.xml.bind.annotation.*;
 
 /**
- * An Entry maintaining a String key and a String value. The value may be
+ * An Entry maintaining a Double key and a Double value. The value may be
  * changed using the {@code setValue} method. This class facilitates the process
  * of building custom map implementations. For example, it may be convenient to
  * return arrays of {@code SimpleEntry} instances in method
  * {@code Map.entrySet().toArray}.
  *
- * @since 1.6
+ * @since 3.0.1 created 03/12/19
  */
-@XmlRootElement(name = "Entry")
-@XmlType(name = "Entry")
+@XmlRootElement(name = "DoubleEntry")
+@XmlType(name = "DoubleEntry")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Entry implements Serializable, Comparable<Entry> {
+public class DoubleEntry implements Serializable, Comparable<DoubleEntry> {
 
   /**
    * The entry key.
    */
   @XmlAttribute
-  private String key;
+  private Double key;
   /**
    * The entry value.
    */
   @XmlValue
-  private String value;
+  private Double value;
 
-  public Entry() {
+  public DoubleEntry() {
   }
 
-  public Entry(String key, String value) {
+  public DoubleEntry(Double key, Double value) {
     this.key = key;
     this.value = value;
   }
 
-  public String getKey() {
+  public Double getKey() {
     return key;
   }
 
-  public void setKey(String key) {
+  public void setKey(Double key) {
     this.key = key;
   }
 
-  public String getValue() {
+  public Double getValue() {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(Double value) {
     this.value = value;
   }
 
   @Override
-  public int compareTo(Entry o) {
+  public int compareTo(DoubleEntry o) {
     return key.compareTo(o.getKey());
   }
 
@@ -94,7 +94,7 @@ public class Entry implements Serializable, Comparable<Entry> {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final Entry other = (Entry) obj;
+    final DoubleEntry other = (DoubleEntry) obj;
     return Objects.equals(this.key, other.key);
   }
 

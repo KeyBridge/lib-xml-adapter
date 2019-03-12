@@ -9,7 +9,6 @@
  */
 package ch.keybridge.lib.xml.adapter;
 
-import ch.keybridge.lib.xml.adapter.XmlMapDoublesAdapter;
 import ch.keybridge.lib.xml.JaxbUtility;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +21,7 @@ import org.junit.Test;
  *
  * @author Key Bridge LLC
  */
-public class XmlMapDoubleAdapterTest {
+public class XmlMapDoublesAdapterTest {
 
   @Test
   public void testSomeMethod() throws Exception {
@@ -47,7 +46,7 @@ public class XmlMapDoubleAdapterTest {
   @XmlRootElement
   public static class TestContainer {
 
-    @XmlJavaTypeAdapter(XmlMapDoubleAdapter.class)
+    @XmlJavaTypeAdapter(XmlMapDoublesAdapter.class)
     Map<Double, Double> dmap = new HashMap<>();
 
   }

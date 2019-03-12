@@ -23,63 +23,68 @@ import java.util.Objects;
 import javax.xml.bind.annotation.*;
 
 /**
- * An Entry maintaining a String key and a String value. The value may be
+ * A generic, typed Entry maintaining a key and a value. The value may be
  * changed using the {@code setValue} method. This class facilitates the process
  * of building custom map implementations. For example, it may be convenient to
  * return arrays of {@code SimpleEntry} instances in method
  * {@code Map.entrySet().toArray}.
  *
+ * @param <T> the class type
  * @since 1.6
  */
-@XmlRootElement(name = "Entry")
-@XmlType(name = "Entry")
+@XmlRootElement(name = "EntryType")
+@XmlType(name = "EntryType")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Entry implements Serializable, Comparable<Entry> {
+public class EntryType<T> implements Serializable, Comparable<EntryType> {
 
   /**
    * The entry key.
    */
   @XmlAttribute
-  private String key;
+  private T key;
   /**
    * The entry value.
    */
   @XmlValue
-  private String value;
+  private T value;
 
-  public Entry() {
+  public EntryType() {
   }
 
-  public Entry(String key, String value) {
+  public EntryType(T key, T value) {
     this.key = key;
     this.value = value;
   }
 
-  public String getKey() {
+  public T getKey() {
     return key;
   }
 
-  public void setKey(String key) {
+  public void setKey(T key) {
     this.key = key;
   }
 
-  public String getValue() {
+  public T getValue() {
     return value;
   }
 
-  public void setValue(String value) {
+  public void setValue(T value) {
     this.value = value;
   }
 
   @Override
-  public int compareTo(Entry o) {
-    return key.compareTo(o.getKey());
+  public int compareTo(EntryType o) {
+    if (key instanceof Comparable) {
+      return ((Comparable) key).compareTo(o.getKey());
+    } else {
+      return -1;
+    }
   }
 
   @Override
   public int hashCode() {
     int hash = 3;
-    hash = 89 * hash + Objects.hashCode(this.key);
+    hash = 97 * hash + Objects.hashCode(this.key);
     return hash;
   }
 
@@ -94,7 +99,7 @@ public class Entry implements Serializable, Comparable<Entry> {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final Entry other = (Entry) obj;
+    final EntryType<?> other = (EntryType<?>) obj;
     return Objects.equals(this.key, other.key);
   }
 
