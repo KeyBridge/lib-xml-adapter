@@ -73,6 +73,12 @@ public class EntrySet implements Serializable {
     entries.add(new Entry(key, value));
   }
 
+  /**
+   * Convert the EntrySet to a TreeMap instance containing each Entry key/value
+   * pair.
+   *
+   * @return a new TreeMap
+   */
   public Map<String, String> asMap() {
     return new TreeMap<>(entries.stream()
       .filter(e -> e.getKey() != null)
