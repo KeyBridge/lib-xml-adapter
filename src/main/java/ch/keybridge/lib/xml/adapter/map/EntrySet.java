@@ -38,7 +38,7 @@ public class EntrySet implements Serializable {
   /**
    * The (sorted) list of entries.
    */
-  @XmlElement(name = "Entries")
+  @XmlElement(name = "Entry")
   private Collection<Entry> entries;
 
   public EntrySet() {
