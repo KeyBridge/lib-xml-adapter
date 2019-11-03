@@ -56,7 +56,7 @@
 
     <!--LocationTech JTS Topology Suite-->
     <!--Version 1.16.0 released 18-Sep-2018-->
-    <jts.version>1.16.1</jts.version>
+    <jts.version>1.16.0</jts.version>
   </properties>
 
   <dependencies>
