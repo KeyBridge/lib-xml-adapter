@@ -14,6 +14,10 @@
 #   with multiple JDKs.
 # * Uses site:stage to collect the documentation for multi-module projects.
 # * Publishes the documentation for `master` branch.
+# example from   
+# https://docs.gitlab.com/ee/ci/examples/artifactory_and_gitlab/
+
+image: maven:latest
 
 variables:
   # This will supress any download for dependencies and plugins or upload messages which would clutter the console log.
@@ -23,12 +27,13 @@ variables:
   # when running from the command line.
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -Prelease-profile"
-  
+
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
 cache:
   paths:
     - .m2/repository
+    - target/
 
 # This will only validate and compile stuff and run e.g. maven-enforcer-plugin.
 # Because some enforcer rules might check dependency convergence and class duplications
@@ -58,7 +63,20 @@ verify:jdk8:
   image: maven:3.3.9-jdk-8
 
 
+build:jdk8:
+  stage: build
+  script:
+    - 'mvn $MAVEN_CLI_OPTS compile'
+
+
+test:jdk8:
+  stage: test
+  script:
+    - 'mvn $MAVEN_CLI_OPTS test'
+
+
 # For `master` branch run `mvn deploy` automatically.
+# Here you need to decide whether you want to use JDK7 or 8.
 # To get this working you need to define a volume while configuring your gitlab-ci-multi-runner.
 # Mount your `settings.xml` as `/root/.m2/settings.xml` which holds your secrets.
 # See https://maven.apache.org/settings.html
@@ -66,14 +84,11 @@ verify:jdk8:
 
 deploy:jdk8:
   # Use stage test here, so the pages job may later pickup the created site.
-  stage: test
+  stage: deploy
   script:
     - 'mvn $MAVEN_CLI_OPTS deploy'
   only:
     - master
-  # Archive up the built documentation site.
-  artifacts:
-    paths:
-    - target/staging
-  image: maven:3.3.9-jdk-8
+
+
 
