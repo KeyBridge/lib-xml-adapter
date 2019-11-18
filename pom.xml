@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>keybridge.lib</groupId>
   <artifactId>xml-adapter</artifactId>
-  <version>3.1.0</version>
+  <version>4.0.0</version>
   <packaging>jar</packaging>
 
   <name>lib-xml-adapter</name>
@@ -17,7 +17,7 @@
     * com.fasterxml.jackson.core : jackson-databind
     * org.locationtech.jts : jts
 
-    ## History
+    History
 
     v1.0.0 - classes migrated from keybridge-common, WKB adapters moved to lib-gis-common.
     v1.0.1 - add Base64 adapter
@@ -29,6 +29,7 @@
     v1.4.0 - rewrite XmlMapAdapter to include smart object instantiation
     v1.5.0 - refactor into 'ch.keybridge.xml' package; add package-info
     v1.6.0 - rewrire map adapter
+
     v2.0.0 - refactor to lib directory
     v2.0.1 - set Jackson marshaller to understand JAXB annotations
     v2.0.2 - remove ability of Jackson marshaller to understand JAXB annotations due to issues on a live deployment,
@@ -36,12 +37,11 @@
     v2.0.3 - change zoned format from ISO_ZONED_DATE_TIME to ISO_INSTANT
     v2.1.0 - add Currency adapter
 
-    History: v3.x branch
     v3.0.0 - upgrade to use org.locationtech.jts  jts-core v1.16 or later
     v3.0.1 - fix map adapter XML package bug
     v3.1.0 - rename map adapter collection from `Entries` to `Entry`
 
-
+    v4.0.0 - refactor all into `ch.keybridge.xml` package
   </description>
 
   <organization>
