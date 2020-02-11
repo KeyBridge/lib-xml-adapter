@@ -42,7 +42,7 @@
     v3.1.0 - rename map adapter collection from `Entries` to `Entry`
 
     v4.0.0 - refactor all into `ch.keybridge.xml` package
-  </description>
+    - add XmlRadiationPatternAdapter from lib-wireless-entity</description>
 
   <organization>
     <name>Key Bridge</name>
