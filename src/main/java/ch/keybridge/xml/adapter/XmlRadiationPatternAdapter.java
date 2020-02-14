@@ -41,6 +41,15 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
    */
   @Override
   public Map<Double, Double> unmarshal(String v) {
+    /**
+     * Null or empty check.
+     */
+    if (v == null | v.trim().isEmpty()) {
+      return null;
+    }
+    /**
+     * Try to parse the double pairs collection.
+     */
     try {
       TreeMap<Double, Double> treeMap = new TreeMap<>();
       Geometry geometry = new WKTReader().read(v.replace("PATTERN", "MULTIPOINT"));
@@ -63,6 +72,12 @@ public class XmlRadiationPatternAdapter extends XmlAdapter<String, Map<Double, D
    */
   @Override
   public String marshal(Map<Double, Double> v) {
+    /**
+     * Null or empty check.
+     */
+    if (v == null || v.isEmpty()) {
+      return null;
+    }
     /**
      * If the provided map is not sorted, enforce the natural ordering of keys.
      */
