@@ -19,14 +19,20 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class XmlLocaleAdapter extends XmlAdapter<String, Locale> {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Locale unmarshal(String v) throws Exception {
-    return Locale.forLanguageTag(v);
+    return v == null || v.trim().isEmpty() ? null : Locale.forLanguageTag(v);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String marshal(Locale v) throws Exception {
-    return v.toLanguageTag();
+    return v == null ? null : v.toLanguageTag();
   }
 
 }

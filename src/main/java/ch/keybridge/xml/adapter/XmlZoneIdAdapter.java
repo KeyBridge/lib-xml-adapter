@@ -26,11 +26,17 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class XmlZoneIdAdapter extends XmlAdapter<String, ZoneId> {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ZoneId unmarshal(String v) throws Exception {
     return ZoneId.of(v);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String marshal(ZoneId v) throws Exception {
     return v.getId();
