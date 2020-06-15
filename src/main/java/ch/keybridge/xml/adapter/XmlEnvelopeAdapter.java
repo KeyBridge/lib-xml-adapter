@@ -14,11 +14,11 @@
  */
 package ch.keybridge.xml.adapter;
 
-import org.locationtech.jts.geom.Envelope;
 import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import org.locationtech.jts.geom.Envelope;
 
 /**
  * XmlAdapter implementation to marshal and unmarshal Envelope class types.
@@ -34,6 +34,12 @@ public class XmlEnvelopeAdapter extends XmlAdapter<String, Envelope> {
 
   private static final DecimalFormat DF = new DecimalFormat("0.000000");
 
+  /**
+   * {@inheritDoc}
+   * <p>
+   * This marshals the format [Xmin, Ymin, Xmax, Ymax], which is used by GML and
+   * WFS.
+   */
   @Override
   public String marshal(Envelope v) throws Exception {
     return "ENV(" + DF.format(v.getMinX())
@@ -42,6 +48,12 @@ public class XmlEnvelopeAdapter extends XmlAdapter<String, Envelope> {
       + ", " + DF.format(v.getMaxY()) + ")";
   }
 
+  /**
+   * {@inheritDoc}
+   * <p>
+   * Unmarshal the format [Xmin, Ymin, Xmax, Ymax], which is used by GML and
+   * WFS.
+   */
   @Override
   public Envelope unmarshal(String v) throws Exception {
     Pattern p = Pattern.compile("ENV\\((-?\\d+\\.\\d+)\\s*,\\s*(-?\\d+\\.\\d+)\\s*,\\s*(-?\\d+\\.\\d+)\\s*,\\s*(-?\\d+\\.\\d+)\\)");
@@ -49,8 +61,8 @@ public class XmlEnvelopeAdapter extends XmlAdapter<String, Envelope> {
     Matcher m = p.matcher(v);
     if (m.find()) {
       return new Envelope(Double.valueOf(m.group(1)),
-                          Double.valueOf(m.group(2)),
                           Double.valueOf(m.group(3)),
+                          Double.valueOf(m.group(2)),
                           Double.valueOf(m.group(4)));
     }
     System.out.println("ERROR - not found");
